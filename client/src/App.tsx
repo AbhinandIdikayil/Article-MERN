@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import Articles from './component/Articles/Articles'
-import Navbar from './component/Header/Navbar'
-import LatestArticle from './component/LatestArticle'
+import Articles from './components/Articles/Articles'
+import LatestArticle from './components/LatestArticle'
 import Registeration from './pages/Registeration/Registeration'
 import Login from './pages/Login/Login'
 import UserLayout from './layout/UserLayout'
+import Profile from './pages/Profile/Profile'
 
 function App() {
 
@@ -20,6 +20,7 @@ function App() {
             <LatestArticle />
             <Articles />
           </>} />
+          <Route path='/profile' element={<Profile />} />
 
         </Route>
       </Routes>

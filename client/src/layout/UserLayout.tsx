@@ -1,11 +1,11 @@
-import Navbar from '../component/Header/Navbar'
+import Navbar from '../components/Header/Navbar'
 import { Outlet } from 'react-router-dom'
-import Footer from '../component/Footer/Footer'
+import Footer from '../components/Footer/Footer'
 
 function UserLayout() {
     return (
         <>
-            <Navbar />
+            <Navbar  />
             <Outlet />
             <Footer />
         </>

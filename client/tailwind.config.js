@@ -4,30 +4,83 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
+  darkMode: ['class', "class"],
   theme: {
-    extend: {
-      colors: {
-        // Define custom colors mapped to your CSS variables
-        background: 'var(--background-color)',
-        text: 'var(--text-color)',
-        p: 'var(--p-text-color)'
-      },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        slideUp: {
-          '0%': { transform: 'translateY(51vh)', opacity: '0' }, // Start from off-screen
-          '100%': { transform: 'translateY(0)', opacity: '1' },   // End at original position
-        }
-      },
-      animation: {
-        fadeIn: 'fadeIn 1s ease-out forwards',
-        slideUp: 'slideUp 1s ease-out forwards'
-      }
-    },
+  	extend: {
+  		colors: {
+  			background: 'hsl(var(--background))',
+  			text: 'var(--text-color)',
+  			p: 'var(--p-text-color)',
+  			foreground: 'hsl(var(--foreground))',
+  			card: {
+  				DEFAULT: 'hsl(var(--card))',
+  				foreground: 'hsl(var(--card-foreground))'
+  			},
+  			popover: {
+  				DEFAULT: 'hsl(var(--popover))',
+  				foreground: 'hsl(var(--popover-foreground))'
+  			},
+  			primary: {
+  				DEFAULT: 'hsl(var(--primary))',
+  				foreground: 'hsl(var(--primary-foreground))'
+  			},
+  			secondary: {
+  				DEFAULT: 'hsl(var(--secondary))',
+  				foreground: 'hsl(var(--secondary-foreground))'
+  			},
+  			muted: {
+  				DEFAULT: 'hsl(var(--muted))',
+  				foreground: 'hsl(var(--muted-foreground))'
+  			},
+  			accent: {
+  				DEFAULT: 'hsl(var(--accent))',
+  				foreground: 'hsl(var(--accent-foreground))'
+  			},
+  			destructive: {
+  				DEFAULT: 'hsl(var(--destructive))',
+  				foreground: 'hsl(var(--destructive-foreground))'
+  			},
+  			border: 'hsl(var(--border))',
+  			input: 'hsl(var(--input))',
+  			ring: 'hsl(var(--ring))',
+  			chart: {
+  				'1': 'hsl(var(--chart-1))',
+  				'2': 'hsl(var(--chart-2))',
+  				'3': 'hsl(var(--chart-3))',
+  				'4': 'hsl(var(--chart-4))',
+  				'5': 'hsl(var(--chart-5))'
+  			}
+  		},
+  		keyframes: {
+  			fadeIn: {
+  				'0%': {
+  					opacity: '0'
+  				},
+  				'100%': {
+  					opacity: '1'
+  				}
+  			},
+  			slideUp: {
+  				'0%': {
+  					transform: 'translateY(51vh)',
+  					opacity: '0'
+  				},
+  				'100%': {
+  					transform: 'translateY(0)',
+  					opacity: '1'
+  				}
+  			}
+  		},
+  		animation: {
+  			fadeIn: 'fadeIn 1s ease-out forwards',
+  			slideUp: 'slideUp 1s ease-out forwards'
+  		},
+  		borderRadius: {
+  			lg: 'var(--radius)',
+  			md: 'calc(var(--radius) - 2px)',
+  			sm: 'calc(var(--radius) - 4px)'
+  		}
+  	}
   },
   variants: {
     extend: {
@@ -35,6 +88,6 @@ export default {
       textColor: ['dark'], // Enable dark mode for text color
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 }
 

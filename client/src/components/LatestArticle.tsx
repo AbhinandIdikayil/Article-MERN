@@ -1,7 +1,7 @@
 
 function LatestArticle() {
     return (
-        <div className='container-latest-article px-16 max-md:px-3 w-full'>
+        <div className='animate-slideUp container-latest-article px-16 max-md:px-3 w-full'>
             <div className='item item1'>
                 <div className="w-full h-full p-2 overflow-hidden">
                     <div className="w-full h-[200px]">
