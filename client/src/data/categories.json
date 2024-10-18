@@ -1,0 +1,42 @@
+[
+    {
+        "id": "1",
+        "category": "sports"
+    },
+    {
+        "id": "2",
+        "category": "politics"
+    },
+    {
+        "id": "3",
+        "category": "techonology"
+    },
+    {
+        "id": "4",
+        "category": "science"
+    },
+    {
+        "id": "5",
+        "category": "entertainment"
+    },
+    {
+        "id": "6",
+        "category": "health"
+    },
+    {
+        "id": "7",
+        "category": "business"
+    },
+    {
+        "id": "8",
+        "category": "travel"
+    },
+    {
+        "id": "9",
+        "category": "food"
+    },
+    {
+        "id": "10",
+        "category": "fashion"
+    }
+]

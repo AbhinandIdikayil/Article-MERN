@@ -19,7 +19,7 @@ export default {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(60vh)', opacity: '0' }, // Start from off-screen
+          '0%': { transform: 'translateY(51vh)', opacity: '0' }, // Start from off-screen
           '100%': { transform: 'translateY(0)', opacity: '1' },   // End at original position
         }
       },

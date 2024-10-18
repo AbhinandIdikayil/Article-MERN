@@ -1,4 +1,5 @@
 import { LoaderIcon } from 'lucide-react'
+import { Link } from 'react-router-dom'
 function Login() {
   return (
     <div className="relative flex h-screen w-screen bg-white overflow-hidden">
@@ -26,9 +27,9 @@ function Login() {
               <LoaderIcon className='animate-spin' width={35} height={20} />
             </button> */}
             <h1 className='text-sm font-semibold text-center mt-2'>dont have'an account ,
-              <span className='text-violet-700'>
+              <Link to={'/signup'} className='text-violet-700'>
                 create account
-              </span>
+              </Link>
             </h1>
           </form>
         </div>
