@@ -1,12 +1,12 @@
 import { useTheme } from "../../context/ThemeContext"
 
-function Toggle() {
-    const { toggleTheme } = useTheme()
+function Toggle({ mdhidden }: { mdhidden: boolean }) {
+    const { toggleTheme, theme } = useTheme()
     return (
-        <div className="checkbox-wrapper-54">
+        <div className={`checkbox-wrapper-54 ${mdhidden ? 'max-md:hidden' : ''}`}>
             <label className="switch" >
-                <input type="checkbox" />
-                <span  onClick={toggleTheme} className="slider"></span>
+                <input type="checkbox" checked={theme == "dark" ? true : false} />
+                <span onClick={toggleTheme} className="slider"></span>
             </label>
         </div>
     )

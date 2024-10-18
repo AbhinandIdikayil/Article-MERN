@@ -1,16 +1,13 @@
-import { Document, model, Schema } from "mongoose";
+import { CallbackError, model, Schema } from "mongoose";
+import { IUser } from "../types";
+import bcrypt from 'bcrypt'
+const SALT_ROUNDS = 10
 
-interface IUser extends Document {
-    firstname: string,
-    lastname: string,
-    phone: string,
-    email: string,
-    DOB: Date,
-    password: string,
-    preferences: string[];
+export interface IUserDocument extends IUser, Document {
+    comparePassword(enteredPassword: string): Promise<boolean>;
 }
 
-const UserSchema = new Schema<IUser>({
+const UserSchema = new Schema<IUserDocument>({
     firstname: {
         type: String,
         required: true
@@ -42,4 +39,23 @@ const UserSchema = new Schema<IUser>({
     }
 })
 
-export const UserModel = model<IUser>('Users',UserSchema)
+UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+    try {
+        const salt = await bcrypt.genSalt(SALT_ROUNDS);
+        const hash = await bcrypt.hash(this.password, salt);
+        // Replace the plain text password with the hash
+        this.password = hash;
+        next();
+    } catch (error) {
+        next(error as CallbackError);
+    }
+})
+
+UserSchema.methods.comparePassword = async function (enteredPassword:string): Promise<boolean> {
+    return bcrypt.compare(enteredPassword,this.password)
+}
+
+export const UserModel = model<IUserDocument>('Users', UserSchema)
