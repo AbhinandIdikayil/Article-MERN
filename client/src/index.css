@@ -10,7 +10,7 @@ body {
   color: var(--text-color);
 }
 
-.h1,.profile {
+.h1,.profile,.article-form {
   font-family: "Poppins", sans-serif;
 }
 

@@ -5,7 +5,7 @@ function Toggle({ mdhidden }: { mdhidden: boolean }) {
     return (
         <div className={`checkbox-wrapper-54 ${mdhidden ? 'max-md:hidden' : ''}`}>
             <label className="switch" >
-                <input type="checkbox" checked={theme == "dark" ? true : false} />
+                <input readOnly type="checkbox" checked={theme == "dark" ? true : false} />
                 <span onClick={toggleTheme} className="slider"></span>
             </label>
         </div>

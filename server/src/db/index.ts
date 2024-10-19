@@ -2,14 +2,14 @@ import mongoose from "mongoose"
 import { MONGO_URI } from "../config/env"
 
 
-export const connectDB = async () => {
+
+export const connectDB = async (): Promise<void> => {
     try {
-        const res = await mongoose.connect(MONGO_URI)
-        if (res) {
-            console.log(`-- 🍃 Database connected 🍃 --`)
-        }
+        const conn = await mongoose.connect(MONGO_URI)
+        console.log(`-- 🍃 Database connected successfully 🍃 --`);
     } catch (error) {
-        console.error(error)
-        process.exit(1)
+        console.error('Database connection error:', error);
+        process.exit(1);
     }
-}
+};
+
