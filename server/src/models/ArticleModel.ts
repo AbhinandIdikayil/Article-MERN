@@ -8,6 +8,9 @@ interface IArticle extends Document {
     image: File | null;
     tags: string[];
     category: string;
+    likes: mongoose.Types.ObjectId[];
+    dislikes: mongoose.Types.ObjectId[];
+    blocks: mongoose.Types.ObjectId[];
 }
 
 const articleSchema = new Schema<IArticle>({
@@ -40,6 +43,14 @@ const articleSchema = new Schema<IArticle>({
     category: {
         type: String,
         required: true
+    },
+    likes:{
+        type: [mongoose.Schema.Types.ObjectId],
+        ref:'Users'
+    },
+    dislikes:{
+        type:[mongoose.Schema.Types.ObjectId],
+        ref:'Users'
     }
 })
 

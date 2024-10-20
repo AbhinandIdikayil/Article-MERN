@@ -1,5 +1,11 @@
+import { OutletContextType } from "@/types"
+import { useOutletContext } from "react-router-dom"
 
 function Articles() {
+    const { setShowArticle } = useOutletContext<OutletContextType>()
+    function showArticle() {
+        setShowArticle(true)
+    }
     return (
         <div className="flex flex-col justify-center items-center py-8 bg-background">
             <div className="flex flex-col px-8 max-w-full w-[1280px] max-md:px-5">
@@ -9,7 +15,7 @@ function Articles() {
                     </div>
                     <div className="flex flex-col mt-8 w-full max-md:max-w-full">
                         <div className="flex flex-wrap gap-8 justify-start items-start w-full max-md:max-w-full">
-                            <div className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
+                            <div onClick={showArticle} className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
                                 <img
                                     loading="lazy"
                                     srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/e6cb147f8a1e24b2ff045df34c571474decd6c787b4799d8fe3b059925bbcdaf?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274"
@@ -224,9 +230,7 @@ function Articles() {
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
-
                     </div>
                 </div>
                 <div className="flex flex-wrap gap-10 justify-between items-center pt-5 mt-8 w-full text-sm font-medium leading-none text-gray-500 whitespace-nowrap border-t border-gray-200 min-h-[61px] max-md:max-w-full">

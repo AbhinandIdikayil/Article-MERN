@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { ArticleFormSchema } from "@/validation/ArticleValidation"
 import { z } from "zod"
-import { OutletContextType } from "@/types"
 import DropDown from "../DropDown"
 import categories from '../../data/categories.json'
 import React, { useState } from "react"
@@ -10,7 +9,11 @@ import { ChevronDown } from "lucide-react"
 type dropDown = {
   dropDown: boolean
 }
-function ArticleForm({ setCreateArticle }: OutletContextType) {
+type articleForm = {
+  setCreateArticle: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+function ArticleForm({ setCreateArticle}: articleForm) {
   const [action, setAction] = useState<dropDown>({
     dropDown: false
   })

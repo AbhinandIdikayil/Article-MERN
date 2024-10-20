@@ -5,13 +5,16 @@ import HeaderH1 from "./HeaderH1";
 import Toggle from "../theme/Toggle";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import ArticleForm from "../Modals/ArticleForm";
+import ArticleDetails from "../Modals/ArtcleDetails";
 
-interface NavbarProps {
+type NavbarProps = {
     createArticle: boolean,
     setCreateArticle: React.Dispatch<React.SetStateAction<boolean>>;
+    showArticle: boolean,
+    setShowArticle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Navbar({ setCreateArticle, createArticle }: NavbarProps) {
+function Navbar({ setCreateArticle, createArticle, showArticle,setShowArticle }: NavbarProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const location = useLocation()
     function onMenuClick() {
@@ -20,8 +23,8 @@ function Navbar({ setCreateArticle, createArticle }: NavbarProps) {
     return (
         <>
             {/* 
-        //! NAVBAR FOR SMALL SCREEN
-        */}
+            //! NAVBAR FOR SMALL SCREEN
+            */}
             {
                 isOpen && (
                     <div className="fixed top-0 left-0 w-full h-screen bg-background flex justify-center items-center">
@@ -35,12 +38,19 @@ function Navbar({ setCreateArticle, createArticle }: NavbarProps) {
                     </div>
                 )
             }
-
+            {/* 
+            //! MODAL TO SHOW THE ARTICLE DETAILS
+            */}
+            {
+                showArticle && (
+                    <ArticleDetails setShowArticle={setShowArticle} />
+                )
+            }
 
             <div className="relative flex flex-col justify-center items-center">
                 {
                     createArticle && (
-                        <ArticleForm  setCreateArticle={setCreateArticle} />
+                        <ArticleForm setCreateArticle={setCreateArticle} />
                     )
                 }
                 <div className="flex justify-between items-center py-2.5 max-w-full w-[1216px]">
