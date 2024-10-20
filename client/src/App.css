@@ -191,3 +191,38 @@ p {
 .button-4:-webkit-details-marker {
   display: none;
 }
+
+
+.drop-down {
+  animation: show 0.5s ease-in-out forwards;
+}
+
+.icon {
+  animation: rotate 0.5s forwards;
+}
+
+@keyframes show {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
+
+  100% {
+    height: 12rem;
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes rotate {
+  from {}
+
+  to {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+}

@@ -1,6 +1,11 @@
+import { OutletContextType } from "@/types"
 import { CalendarDays, Grip, KeyRound, Mail, Phone, UserPen } from "lucide-react"
+import { useOutletContext } from "react-router-dom"
+
+
 
 function Profile() {
+  const { setCreateArticle } = useOutletContext<OutletContextType>()
   return (
     <div className="px-16 h-screen flex-col justify-center items-center profile">
       <div className="w-full h-1/2 flex gap-5 mt-5 ">
@@ -37,7 +42,7 @@ function Profile() {
       <div className="border border-text w-full h-[300px] mt-5 p-3">
         <h1 className="text-xl capitalize tracking-wide font-semibold text-text">
           Your articles
-          <button className="float-right button-4"> create article</button>
+          <button onClick={() => setCreateArticle(true)} className="float-right button-4"> create article</button>
         </h1>
       </div>
     </div>

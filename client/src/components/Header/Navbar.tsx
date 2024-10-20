@@ -40,7 +40,7 @@ function Navbar({ setCreateArticle, createArticle }: NavbarProps) {
             <div className="relative flex flex-col justify-center items-center">
                 {
                     createArticle && (
-                        <ArticleForm />
+                        <ArticleForm  setCreateArticle={setCreateArticle} />
                     )
                 }
                 <div className="flex justify-between items-center py-2.5 max-w-full w-[1216px]">
