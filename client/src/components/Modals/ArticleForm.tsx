@@ -5,7 +5,11 @@ import { z } from "zod"
 import DropDown from "../DropDown"
 import categories from '../../data/categories.json'
 import React, { useState } from "react"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, LoaderIcon } from "lucide-react"
+import { uploadToCloudinary } from "@/utils/cloudinary"
+import { useDispatch } from "react-redux"
+import { AppDispatch } from "@/redux/store"
+import { CreateArticle } from "@/redux/action/articleAction"
 type dropDown = {
   dropDown: boolean
 }
@@ -13,13 +17,14 @@ type articleForm = {
   setCreateArticle: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-function ArticleForm({ setCreateArticle}: articleForm) {
+function ArticleForm({ setCreateArticle }: articleForm) {
+  const dispatch = useDispatch<AppDispatch>()
   const [action, setAction] = useState<dropDown>({
     dropDown: false
   })
   const [image, setImage] = useState<File | null>(null)
   type formData = z.infer<typeof ArticleFormSchema>
-  const { setValue, register, control, handleSubmit, setError, getValues, formState: { errors, isSubmitting } } = useForm<formData>({
+  const { setValue, register, handleSubmit, setError, getValues, formState: { errors, isSubmitting } } = useForm<formData>({
     resolver: zodResolver(ArticleFormSchema),
     defaultValues: {
       title: '',
@@ -33,14 +38,20 @@ function ArticleForm({ setCreateArticle}: articleForm) {
 
 
   console.log(errors)
-  const onSubmit: SubmitHandler<formData> = async (data) => {
-    if (!image) {
-      // setError('image', { message: 'Image is required' })
-    }
+  const onSubmit: SubmitHandler<formData> = async (data:formData) => {
     try {
       console.log(data)
-      // const response = await simulatedApi(data);
-      // console.log("Success:", response);
+      const imageUrl = await uploadToCloudinary(data.image) 
+      if(imageUrl){
+        const req:any = {
+          ...data,
+          image:imageUrl
+        }
+        const res = await dispatch(CreateArticle(req)).unwrap()
+        if(res){
+          setCreateArticle(false)
+        }
+      }
     } catch (error: any) {
       console.error("Error:", error);
       setError("root", {
@@ -149,7 +160,15 @@ function ArticleForm({ setCreateArticle}: articleForm) {
             </div>
             <div className="pt-5 h-full w-full flex gap-2" >
               <button onClick={() => setCreateArticle(false)} className="button-4 w-1/2 py-2 text-red-500">cancel</button>
-              <button type="submit" className="button-4 w-1/2 py-2"> post article</button>
+              {
+                isSubmitting ? (
+                  <button className="button-4 w-1/2 flex items-center justify-center py-2" >
+                    <LoaderIcon className='animate-spin' width={35} height={20} />
+                  </button>
+                ) : (
+                  <button type="submit" disabled={isSubmitting} className="button-4 w-1/2 py-2"> post article</button>
+                )
+              }
             </div>
           </div>
         </form>

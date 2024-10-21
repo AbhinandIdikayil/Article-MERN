@@ -2,10 +2,12 @@ import express from 'express'
 import cors from 'cors'
 import { router } from './routes/routes'
 import { errorHandler } from './middlewares/error.middleware'
-import { corsOption, MONGO_URI, PORT } from './config/env'
+import { corsOption, PORT } from './config/env'
 import { connectDB } from './db'
+import cookie from 'cookie-parser'
 const app = express()
 
+app.use(cookie())
 app.use(cors(corsOption))
 app.use(express.json())
 app.use('/api', router)

@@ -20,7 +20,7 @@ export type ArticleType = {
   title: string
   content: string
   description: string;
-  image: File | null;
+  image: string;
   tags: string[];
   category: string;
 }

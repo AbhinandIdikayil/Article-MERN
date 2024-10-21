@@ -12,6 +12,7 @@ export class ArticleService {
         try {
             return await this.articleRepository.create(data)
         } catch (error) {
+            console.log(error)
             throw ErrorResponse.badRequest('Error while creating article')
         }
     }

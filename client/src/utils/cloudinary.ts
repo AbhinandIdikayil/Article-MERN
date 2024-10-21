@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const uploadToCloudinary = async (imageFile: any ) => {
+export const uploadToCloudinary = async (imageFile: any ): Promise<string | null> => {
     const formData = new FormData()
     formData.append('file',imageFile)
     formData.append('upload_preset','article')
@@ -10,5 +10,6 @@ export const uploadToCloudinary = async (imageFile: any ) => {
         return data.secure_url
     } catch (error) {
         console.log(error)
+        return null
     }
 }
