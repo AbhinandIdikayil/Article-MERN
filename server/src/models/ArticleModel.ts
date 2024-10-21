@@ -5,7 +5,7 @@ interface IArticle extends Document {
     title: string;
     content: string;
     description: string;
-    image: File | null;
+    image: string;
     tags: string[];
     category: string;
     likes: mongoose.Types.ObjectId[];

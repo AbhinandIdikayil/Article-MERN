@@ -25,4 +25,34 @@ export class ArticleController {
             next(error)
         }
     }
+    async list(req: Request, res: Response, next: NextFunction) {
+        try {
+            const data = await this.articleService.findAll()
+            res.status(200).json({ success: true, data, message: 'article listed successfully' })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async deleteArticle(req: Request, res: Response, next: NextFunction) {
+        try {
+            const articleId = req.params.id;
+            console.log("article Id", articleId);
+
+            const findArticle = await this.articleService.deleteOne(articleId)
+            console.log(findArticle);
+            if (!findArticle) {
+                throw ErrorResponse.notFound('Article not found')
+            }
+
+            res.status(200).json({
+                success: true,
+                data: findArticle,
+                message: "Article deleted successfully",
+            });
+        } catch (error) {
+            console.error("Error fetching articles:", error);
+            next(error);
+        }
+    };
 }

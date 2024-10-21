@@ -1,11 +1,26 @@
+import { ListArticles } from "@/redux/action/articleAction"
+import { AppDispatch } from "@/redux/store"
 import { OutletContextType } from "@/types"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { useOutletContext } from "react-router-dom"
 
 function Articles() {
+    const dispatch = useDispatch<AppDispatch>()
     const { setShowArticle } = useOutletContext<OutletContextType>()
     function showArticle() {
         setShowArticle(true)
     }
+    async function list(){
+        try {
+            await dispatch(ListArticles()).unwrap()
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        list()
+    },[])
     return (
         <div className="flex flex-col justify-center items-center py-8 bg-background">
             <div className="flex flex-col px-8 max-w-full w-[1280px] max-md:px-5">

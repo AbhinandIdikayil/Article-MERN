@@ -1,7 +1,8 @@
 import { UserSliceType } from "@/types";
 import { createSlice } from "@reduxjs/toolkit";
-import { Logout, Register } from "../action/userAction";
-import { CreateArticle } from "../action/articleAction";
+import { handleAsyncThunkError, Logout, Register } from "../action/userAction";
+import { CreateArticle, ListArticles } from "../action/articleAction";
+import { error } from "console";
 
 
 const initialState: UserSliceType = {
@@ -51,6 +52,15 @@ const UserSlice = createSlice({
         })
         builder.addCase(CreateArticle.rejected,() => {
             
+        })
+        builder.addCase(ListArticles.pending,() => {
+            
+        })
+        builder.addCase(ListArticles.fulfilled,(state,{payload}) => {
+           state.articles = payload.data
+        })
+        builder.addCase(ListArticles.rejected,(state) => {
+            state.articles = []            
         })
     },
 })

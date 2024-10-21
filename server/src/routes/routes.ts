@@ -16,3 +16,5 @@ router.route('/create').post(
     verify,
     (req, res, next) => articleController.createArticle(req as ModifiedRequest, res, next)
 )
+router.route('/articles').get(verify,articleController.list.bind(articleController))
+router.route('/article/:id').delete(verify,articleController.deleteArticle.bind(articleController))

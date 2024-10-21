@@ -22,7 +22,7 @@ export const ListArticles = createAsyncThunk(
     'user/list-articles',
     async (_, { rejectWithValue }) => {
         try {
-            const {data} = await api.get('/list')
+            const {data} = await api.get('/articles')
             return data
         } catch (error) {
             const rejected = handleAsyncThunkError(error)

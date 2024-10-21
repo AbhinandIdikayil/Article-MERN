@@ -16,4 +16,10 @@ export class ArticleService {
             throw ErrorResponse.badRequest('Error while creating article')
         }
     }
+    async findAll(): Promise<IArticle[]> {
+        return await this.articleRepository.findAll()
+    }
+    async deleteOne(id: string): Promise<IArticle | null> {
+        return await this.articleRepository.deleteOne(id)
+    }
 }
