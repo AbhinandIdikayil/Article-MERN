@@ -6,6 +6,7 @@ import Registeration from './pages/Registeration/Registeration'
 import Login from './pages/Login/Login'
 import UserLayout from './layout/UserLayout'
 import Profile from './pages/Profile/Profile'
+import ProtectedRoute from './pages/ProtectedRoute'
 
 function App() {
 
@@ -14,7 +15,11 @@ function App() {
       <Routes>
         <Route path='/signup' element={<Registeration />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/' element={<UserLayout />}>
+        <Route path='/' element={
+          <ProtectedRoute>
+            <UserLayout />
+          </ProtectedRoute>
+        }>
         //! route for user home page
           <Route path='' element={<>
             <LatestArticle />

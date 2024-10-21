@@ -34,7 +34,9 @@ const UserSchema = new Schema<IUserDocument>({
 
     },
     preferences: {
-        type: [String],
+        type: [{
+            value: { type: String, required: true } // Each preference is an object with a value property
+        }],
         required: true
     }
 })
@@ -54,8 +56,8 @@ UserSchema.pre('save', async function (next) {
     }
 })
 
-UserSchema.methods.comparePassword = async function (enteredPassword:string): Promise<boolean> {
-    return bcrypt.compare(enteredPassword,this.password)
+UserSchema.methods.comparePassword = async function (enteredPassword: string): Promise<boolean> {
+    return bcrypt.compare(enteredPassword, this.password)
 }
 
 export const UserModel = model<IUserDocument>('Users', UserSchema)

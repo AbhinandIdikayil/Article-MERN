@@ -2,13 +2,14 @@ import { ObjectId } from "mongoose";
 
 
 export interface IUser {
+    _id: string,
     firstname: string,
     lastname: string,
     phone: string,
     email: string,
     DOB: Date,
     password: string,
-    preferences: string[];
+    preferences: {value: string}[];
 }
 
 export  interface IArticle {

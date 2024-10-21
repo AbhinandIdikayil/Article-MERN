@@ -1,11 +1,14 @@
 import { Menu, X } from "lucide-react"
 import React, { useState } from "react"
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import HeaderH1 from "./HeaderH1";
 import Toggle from "../theme/Toggle";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import ArticleForm from "../Modals/ArticleForm";
 import ArticleDetails from "../Modals/ArtcleDetails";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
+import { Logout } from "@/redux/action/userAction";
 
 type NavbarProps = {
     createArticle: boolean,
@@ -14,11 +17,19 @@ type NavbarProps = {
     setShowArticle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Navbar({ setCreateArticle, createArticle, showArticle,setShowArticle }: NavbarProps) {
+function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle }: NavbarProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const location = useLocation()
+    const dispatch = useDispatch<AppDispatch>()
+    const navigate = useNavigate()
     function onMenuClick() {
         setIsOpen(prev => !prev)
+    }
+    async function logout() {
+        const data = await dispatch(Logout()).unwrap()
+        if(data){
+           return navigate('/login')
+        }
     }
     return (
         <>
@@ -84,7 +95,7 @@ function Navbar({ setCreateArticle, createArticle, showArticle,setShowArticle }:
                                     Create arcticle
                                 </DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                                <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                         <Toggle mdhidden={true} />
