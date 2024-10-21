@@ -1,5 +1,6 @@
 import { ArticlesOfOneUser } from "@/redux/action/articleAction"
 import { getUser } from "@/redux/action/userAction"
+import { setArticleById } from "@/redux/reducers/userSlice"
 import { AppDispatch, RootState } from "@/redux/store"
 import { ArticleType, OutletContextType } from "@/types"
 import { CalendarDays, Grip, KeyRound, Mail, Phone, UserPen } from "lucide-react"
@@ -10,7 +11,7 @@ import { useOutletContext } from "react-router-dom"
 
 
 function Profile() {
-  const { setCreateArticle } = useOutletContext<OutletContextType>()
+  const { setCreateArticle, setEditArticle } = useOutletContext<OutletContextType>()
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.user)
   async function getuser() {
@@ -20,6 +21,13 @@ function Profile() {
     } catch (error) {
       console.log(error)
     }
+  }
+  function onEdit(articleId: string) {
+    dispatch(setArticleById(articleId))
+    setEditArticle(true)
+  }
+  function onDelete(articleId: string) {
+
   }
   useEffect(() => {
     getuser()
@@ -62,11 +70,15 @@ function Profile() {
           Your articles
           <button onClick={() => setCreateArticle(true)} className="float-right button-4"> create article</button>
         </h1>
-        <div className="flex flex-col mt-8 w-full max-md:max-w-full">
+        <div className="flex flex-col  w-full max-md:max-w-full">
           <div className="flex flex-wrap gap-8 justify-start items-start w-full max-md:max-w-full">
             {
               user?.myArticles?.map((data: ArticleType) => (
                 <div className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
+                  <div className="w-full flex justify-between">
+                    <button onClick={() => onEdit(data._id)} className="button-4 text-blue-500">edit</button>
+                    <button onClick={() => onDelete(data._id)} className="button-4 text-red-500">delete</button>
+                  </div>
                   <img
                     loading="lazy"
                     srcSet={data.image}

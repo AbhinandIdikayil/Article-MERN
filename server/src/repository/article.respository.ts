@@ -40,12 +40,46 @@ export class ArticleRepository {
         if (user) {
             const userIdObject = new mongoose.Types.ObjectId(userid); // Convert string to ObjectId
             const likedIndex = user.likes.indexOf(userIdObject)
+            const dislikedIndex = user.dislikes.indexOf(userIdObject);
+
             if (likedIndex !== -1) {
                 user.likes.splice(likedIndex, 1);
                 let res = await user.save();
                 return res as unknown as IArticleMOdel
             } else {
-                return null
+                if (dislikedIndex !== -1) {
+                    user.dislikes.splice(dislikedIndex, 1);
+                }
+                user.likes.push(userIdObject);
+                let res = await user.save();
+                return res as unknown as IArticleMOdel
+            }
+        } else {
+            return null
+        }
+    }
+
+    async dislikeArticle(id: string, userId: string): Promise<IArticleMOdel | null> {
+        let article = await this.findOne(id)
+        if (article) {
+            const userIdObject = new mongoose.Types.ObjectId(userId); // Convert string to ObjectId
+            const likedIndex = article.likes.indexOf(userIdObject);
+
+            const dislikedIndex = article.dislikes.indexOf(userIdObject);
+            if (dislikedIndex !== -1) {
+                article.dislikes.splice(dislikedIndex, 1);
+                let res = await article.save();
+                //! for disliking
+                return res as unknown as IArticleMOdel
+
+            } else {
+                //! for unliking
+                if (likedIndex !== -1) {
+                    article.likes.splice(likedIndex, 1);
+                }
+                article.dislikes.push(userIdObject);
+                let res = await article.save();
+                return res as unknown as IArticleMOdel
             }
         } else {
             return null

@@ -1,9 +1,32 @@
-import { RootState } from "@/redux/store"
+import { dislikeArticle, likeArticle } from "@/redux/action/articleAction"
+import { AppDispatch, RootState } from "@/redux/store"
 import { Tag, ThumbsDown, ThumbsUp, X } from "lucide-react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<React.SetStateAction<boolean>> }) {
   const user = useSelector((state: RootState) => state.user)
+  const dispatch = useDispatch<AppDispatch>()
+  async function onLike() {
+    try {
+      if (user.article?._id) {
+        const data = await dispatch(likeArticle(user.article?._id))
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+
+    }
+  }
+  async function onDislike() {
+    try {
+      if (user.article?._id) {
+        const data = await dispatch(dislikeArticle(user.article?._id))
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
     <div className="z-50 w-screen h-screen bg-black bg-opacity-45 fixed top-0 left-0 bg-background flex justify-center items-center">
       <div className="show-article relative w-3/5 max-md:w-5/6 h-4/5 bg-white rounded-md shadow-md overflow-y-scroll py-4 px-4 ">
@@ -11,8 +34,8 @@ function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<Rea
         <X onClick={() => setShowArticle(false)} className="absolute top-0 right-0 mt-5 mr-6 text-black" />
         <div className="relative break-words w-full ">
           <div className="w-full  relative">
-            <h1 className="capitalize text-lg text-gray-700 font-medium tracking-wide">  {user.article?.description} </h1>
-            <div className="w-full h-[300px]">
+            <h1 className="capitalize text-lg text-gray-700 font-medium tracking-wide mb-2">  {user.article?.description} </h1>
+            <div className="w-full h-[300px] mb-2">
               <img
                 loading="lazy"
                 srcSet={user.article?.image}
@@ -31,12 +54,12 @@ function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<Rea
             </div>
             <div className="flex gap-4 w-full h-full pt-2">
               <div className=" text-black flex gap-1 items-center justify-center">
-                <ThumbsUp className="text-black" />
-                1
+                <ThumbsUp onClick={onLike} className="text-black" />
+                {user.article?.likes?.length}
               </div>
               <div className=" text-black flex gap-1 items-center justify-center" >
-                <ThumbsDown className="text-black " />
-                2
+                <ThumbsDown onClick={onDislike} className="text-black " />
+                {user.article?.dislikes?.length}
               </div>
             </div>
           </div>

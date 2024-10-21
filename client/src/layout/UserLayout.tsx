@@ -5,11 +5,16 @@ import { useState } from 'react'
 
 function UserLayout() {
     const [createArtcle, setCreateArticle] = useState<boolean>(false);
-    const [showArticle,setShowArticle] = useState<boolean>(false)
+    const [showArticle, setShowArticle] = useState<boolean>(false)
+    const [editArticle, setEditArticle] = useState<boolean>(false)
     return (
         <>
-            <Navbar setShowArticle={setShowArticle} showArticle={showArticle} setCreateArticle={setCreateArticle} createArticle={createArtcle} />
-            <Outlet context={{ createArtcle, setCreateArticle, showArticle, setShowArticle }} />
+            <Navbar
+                editArticle={editArticle} setEditArticle={setEditArticle}
+                setShowArticle={setShowArticle} showArticle={showArticle}
+                setCreateArticle={setCreateArticle} createArticle={createArtcle}
+            />
+            <Outlet context={{ createArtcle, setCreateArticle, showArticle, setShowArticle, setEditArticle }} />
             <Footer />
         </>
     )

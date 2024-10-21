@@ -32,4 +32,7 @@ export class ArticleService {
     async likeArticle(id:string,userId:string): Promise<IArticleMOdel |null> {
         return await this.articleRepository.likeArticle(id,userId)
     }
+    async dislikeArticle(id: string,userId: string): Promise<IArticleMOdel | null>{
+        return await this.articleRepository.dislikeArticle(id,userId)
+    }
 }

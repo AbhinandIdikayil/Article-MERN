@@ -9,15 +9,18 @@ import ArticleDetails from "../Modals/ArtcleDetails";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { Logout } from "@/redux/action/userAction";
+import ArticleEdit from "../Modals/ArticleEdit";
 
 type NavbarProps = {
     createArticle: boolean,
     setCreateArticle: React.Dispatch<React.SetStateAction<boolean>>;
     showArticle: boolean,
     setShowArticle: React.Dispatch<React.SetStateAction<boolean>>;
+    editArticle:boolean,
+    setEditArticle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle }: NavbarProps) {
+function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle ,editArticle , setEditArticle}: NavbarProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const location = useLocation()
     const dispatch = useDispatch<AppDispatch>()
@@ -62,6 +65,11 @@ function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle }
                 {
                     createArticle && (
                         <ArticleForm setCreateArticle={setCreateArticle} />
+                    )
+                }
+                {
+                    editArticle && (
+                        <ArticleEdit setEditArticle={setEditArticle} />
                     )
                 }
                 <div className="flex justify-between items-center py-2.5 max-w-full w-[1216px]">

@@ -6,7 +6,7 @@ export interface IArticleMOdel extends Document {
     content: string;
     description: string;
     image: string;
-    tags: string[];
+    tags: string;
     category: string;
     likes: mongoose.Types.ObjectId[];
     dislikes: mongoose.Types.ObjectId[];
@@ -37,7 +37,7 @@ const articleSchema = new Schema<IArticleMOdel>({
         required: true
     },
     tags: {
-        type: [String],
+        type: String,
         required: true
     },
     category: {

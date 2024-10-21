@@ -4,6 +4,7 @@ export type OutletContextType = {
   setCreateArticle: React.Dispatch<React.SetStateAction<boolean>>;// Adjust the type based on the actual function signature
   showArticle: boolean,
   setShowArticle: React.Dispatch<React.SetStateAction<boolean>>
+  setEditArticle: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export type UserType = {
@@ -22,8 +23,10 @@ export type ArticleType = {
   content: string
   description: string;
   image: string;
-  tags: string[];
+  tags: string;
   category: string;
+  likes:string[]
+  dislikes:string[]
 }
 
 
