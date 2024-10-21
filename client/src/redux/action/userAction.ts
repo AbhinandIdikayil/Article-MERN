@@ -9,10 +9,10 @@ interface RejectedError {
     status?: number;
 }
 
-type LoginType = {
+export type LoginType = {
     email?: string,
     phone?: string,
-    passowrd: string
+    password: string
 }
 
 
@@ -42,7 +42,7 @@ export const Register = createAsyncThunk(
     }
 )
 
-export const Login = createAsyncThunk(
+export const login = createAsyncThunk(
     'user/login',
     async (req: LoginType, { rejectWithValue }) => {
         try {

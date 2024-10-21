@@ -7,4 +7,7 @@ export const LoginValidation = z.object({
 }).refine(data => data.email || data.phone,{
     message:'Either email or phone is required',
     path:['email']
-})
+}).refine(data => !(data.email && data.phone), {
+    message: 'Either email or phone should be provided, not both',
+    path: ['email']
+});

@@ -6,14 +6,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import { z } from 'zod'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '@/redux/store'
+import { login } from '@/redux/action/userAction'
+import { AxiosError } from 'axios'
 function Login() {
-
-  type LoginType = z.infer<typeof LoginValidation>
+  const dispatch = useDispatch<AppDispatch>()
   const navigate = useNavigate()
+  type LoginType = z.infer<typeof LoginValidation>
   const user = useSelector((state: RootState) => state.user)
-  const { setValue, register, handleSubmit, formState: { errors } } = useForm<LoginType>({
+  const { setValue, register, handleSubmit, formState: { errors, isSubmitting }, setError } = useForm<LoginType>({
     defaultValues: {
       email: '',
       password: '',
@@ -21,8 +23,18 @@ function Login() {
     },
     resolver: zodResolver(LoginValidation),
   })
-  function onSubmit(formData: LoginType) {
-    console.log(formData)
+  async function onSubmit(formData: LoginType) {
+    try {
+      const data = await dispatch(login(formData)).unwrap()
+      if (data) {
+        navigate('/')
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setError('password',error.response?.data)
+        console.log()
+      }
+    }
   }
   useEffect(() => {
     if (user.loggedIn) {
@@ -65,7 +77,6 @@ function Login() {
                   inputStyle={{ width: '100%' }}
                   inputProps={{
                     name: 'phone',
-                    required: true,
                     autoFocus: true
                   }}
                 />
@@ -83,12 +94,17 @@ function Login() {
                 <input {...register('password')} className='w-full' id='password' type="password" placeholder='Enter you password' />
               </div>
             </div>
-            <button className="button-4 w-full mt-5" role="button">
-              Submit
-            </button>
-            <button className="button-4 w-full flex items-center justify-center" role="button">
-              <LoaderIcon className='animate-spin' width={35} height={20} />
-            </button>
+            {
+              isSubmitting ? (
+                <button className="button-4 w-full flex items-center justify-center" role="button">
+                  <LoaderIcon className='animate-spin' width={35} height={20} />
+                </button>
+              ) : (
+                <button type='submit' disabled={isSubmitting} className="button-4 w-full mt-5" role="button">
+                  Submit
+                </button>
+              )
+            }
             <h1 className='text-sm font-semibold text-center mt-2'>dont have'an account ,
               <Link to={'/signup'} className='text-violet-700'>
                 create account
