@@ -55,4 +55,42 @@ export class ArticleController {
             next(error);
         }
     };
+
+    async ArticlesOfOneUser(req: ModifiedRequest, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.user
+            const data = await this.articleService.ArticlesOfOneUser(id)
+            res.status(200).json({ success: true, data })
+        } catch (error) {
+            next(error)
+        }
+    }
+    async editArticle(req: ModifiedRequest, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.user
+            const { data } = req.body
+            const result = await this.articleService.editArticle(id, data)
+            if (!data) {
+                throw ErrorResponse.badRequest('Couldnt edit article')
+            }
+            res.status(200).json({ success: true, data: result, message: 'Updated successfully' })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async likeArticle(req: ModifiedRequest, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.user //! user id
+            const articleId = req.params.id
+            const data = await this.articleService.likeArticle(articleId,id)
+            if(!data){
+                throw ErrorResponse.badRequest('Couldnt login')
+            }
+            res.status(200).json({success:true,data,message:'liked successfully'})
+        } catch (error) {
+            console.error("Error liking/unliking article:", error);
+            next(error);
+        }
+    };
 }

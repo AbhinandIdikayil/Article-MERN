@@ -22,7 +22,6 @@ function App() {
         }>
         //! route for user home page
           <Route path='' element={<>
-            <LatestArticle />
             <Articles />
           </>} />
           <Route path='/settings' element={<Profile />} />

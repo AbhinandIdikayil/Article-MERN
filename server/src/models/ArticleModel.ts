@@ -1,6 +1,6 @@
 import mongoose, { Document, model, ObjectId, Schema } from "mongoose";
 
-interface IArticle extends Document {
+export interface IArticleMOdel extends Document {
     userId: ObjectId
     title: string;
     content: string;
@@ -13,7 +13,7 @@ interface IArticle extends Document {
     blocks: mongoose.Types.ObjectId[];
 }
 
-const articleSchema = new Schema<IArticle>({
+const articleSchema = new Schema<IArticleMOdel>({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
@@ -54,4 +54,4 @@ const articleSchema = new Schema<IArticle>({
     }
 })
 
-export const ArticlModel = model<IArticle>('Articles',articleSchema)
+export const ArticlModel = model<IArticleMOdel>('Articles',articleSchema)

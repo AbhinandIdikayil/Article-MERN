@@ -16,5 +16,10 @@ router.route('/create').post(
     verify,
     (req, res, next) => articleController.createArticle(req as ModifiedRequest, res, next)
 )
-router.route('/articles').get(verify,articleController.list.bind(articleController))
-router.route('/article/:id').delete(verify,articleController.deleteArticle.bind(articleController))
+router.route('/user').get(verify,
+    (req, res, next) => userController.getUser(req as ModifiedRequest, res, next))
+router.route('/article').get(verify, (req, res, next) => articleController.ArticlesOfOneUser(req as ModifiedRequest, res, next))
+router.route('/articles').get(verify, articleController.list.bind(articleController))
+router.route('/article/:id')
+    .delete(verify, articleController.deleteArticle.bind(articleController))
+    .put(verify)

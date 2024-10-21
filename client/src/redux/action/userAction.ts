@@ -54,14 +54,28 @@ export const login = createAsyncThunk(
     }
 )
 
-export const Logout = createAsyncThunk(
-    'user/logout',
-    async (_,{rejectWithValue}) => {
+
+export const getUser = createAsyncThunk(
+    'user/get',
+    async (_, { rejectWithValue }) => {
         try {
-            const {data} = await api.post('/logout')
+            const { data } = await api.get('/user')
             return data
         } catch (error) {
-            return rejectWithValue(error)  
-        }   
+            const rejected = handleAsyncThunkError(error)
+            return rejectWithValue(rejected)
+        }
+    }
+)
+
+export const Logout = createAsyncThunk(
+    'user/logout',
+    async (_, { rejectWithValue }) => {
+        try {
+            const { data } = await api.post('/logout')
+            return data
+        } catch (error) {
+            return rejectWithValue(error)
+        }
     }
 )

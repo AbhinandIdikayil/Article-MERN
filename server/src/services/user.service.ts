@@ -31,4 +31,7 @@ export class UserService {
             return null
         }
     }
+    async getUser(id: string): Promise<IUser | null> {
+        return await this.userRepository.getUser(id)
+    }
 }

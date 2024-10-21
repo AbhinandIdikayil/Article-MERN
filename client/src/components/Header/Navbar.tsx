@@ -58,16 +58,16 @@ function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle }
                 )
             }
 
-            <div className="relative flex flex-col justify-center items-center">
+            <div className="relative flex flex-col justify-center items-center bg-background">
                 {
                     createArticle && (
                         <ArticleForm setCreateArticle={setCreateArticle} />
                     )
                 }
                 <div className="flex justify-between items-center py-2.5 max-w-full w-[1216px]">
-                    <div className="text-xl font-semibold leading-tight  w-[131px] max-md:w-full whitespace-nowrap max-md:pl-6">
-                        Your Name
-                    </div>
+                    <Link to={'/'} className="text-xl font-semibold leading-tight  w-[131px] max-md:w-full whitespace-nowrap max-md:pl-6">
+                        Articles
+                    </Link>
                     <div className="flex justify-end items-center gap-3.5 float-right  w-[240px] max-md:w-full pr-6">
                         {/* <Link to={'/profile'} className="max-md:hidden text-xl font-semibold leading-tight whitespace-nowrap">
                             Profile

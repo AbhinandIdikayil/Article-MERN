@@ -20,6 +20,7 @@ export  interface IArticle {
     image: string;
     tags: string[];
     category: string;
+    likes:string[]
 }
 
 export interface ILogin {

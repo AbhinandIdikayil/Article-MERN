@@ -13,10 +13,11 @@ export type UserType = {
   email: string,
   DOB: string,
   password: string,
-  preferences: {value:string}[]
+  preferences: { value: string }[]
 }
 
 export type ArticleType = {
+  _id: string
   title: string
   content: string
   description: string;
@@ -29,5 +30,7 @@ export type ArticleType = {
 export type UserSliceType = {
   loggedIn: boolean,
   user: UserType | null,
-  articles: ArticleType[]
+  articles: ArticleType[],
+  myArticles: ArticleType[],
+  article: ArticleType | null
 }

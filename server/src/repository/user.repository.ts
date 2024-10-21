@@ -11,4 +11,7 @@ export class UserRepository {
     async findByPhone(phone: string) {
         return await UserModel.findOne({ phone })
     }
+    async getUser(_id: string): Promise<IUser | null> {
+        return await UserModel.findOne({_id})
+    }
 }
