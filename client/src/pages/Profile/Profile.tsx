@@ -1,3 +1,4 @@
+import ChangePassword from "@/components/Modals/ChangePassword"
 import Editprofile from "@/components/Modals/Editprofile"
 import { ArticlesOfOneUser } from "@/redux/action/articleAction"
 import { getUser } from "@/redux/action/userAction"
@@ -15,6 +16,7 @@ function Profile() {
   const { setCreateArticle, setEditArticle } = useOutletContext<OutletContextType>()
   const dispatch = useDispatch<AppDispatch>()
   const [editProfile, setEditProfile] = useState<boolean>(false)
+  const [editPassword,setEditPassword] = useState<boolean>(false)
   const user = useSelector((state: RootState) => state.user)
   async function getuser() {
     try {
@@ -28,9 +30,12 @@ function Profile() {
     dispatch(setArticleById(articleId))
     setEditArticle(true)
   }
-  function onDelete(articleId: string) {
+  
+  function onDelete(id: string){
 
   }
+
+
   useEffect(() => {
     getuser()
   }, [])
@@ -39,6 +44,11 @@ function Profile() {
       {
         editProfile && (
           <Editprofile setEditProfile={setEditProfile} />
+        )
+      }
+      {
+        editPassword && (
+          <ChangePassword setEditPassword={setEditPassword} />
         )
       }
       <div className="px-16 h-screen flex-col justify-center items-center profile">
@@ -60,9 +70,11 @@ function Profile() {
               <Phone />
               <span> {user.user?.phone} </span>
             </h1>
-            <h1 className="flex gap-4  py-2">
+            <h1 className="flex gap-4 items-center py-2">
               <KeyRound />
-              Change password
+              <span onClick={() => setEditPassword(true)} className="button-4">
+                Change password
+              </span>
             </h1>
             <h1 className="flex gap-4  py-2 pb-4">
               <Grip />
