@@ -21,6 +21,7 @@ export class UserService {
         } else if (data?.phone) {
             user = await this.userRepository.findByPhone(data.phone)
         }
+        console.log(user)
         if (!user) {
             throw ErrorResponse.badRequest('No user found')
         }

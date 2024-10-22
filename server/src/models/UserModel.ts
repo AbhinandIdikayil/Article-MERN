@@ -47,7 +47,7 @@ UserSchema.pre('save', async function (next) {
     }
     try {
         const salt = await bcrypt.genSalt(SALT_ROUNDS);
-        const hash = await bcrypt.hash(this.password, salt);
+        const hash = await bcrypt.hash(this?.password, salt);
         // Replace the plain text password with the hash
         this.password = hash;
         next();
@@ -64,7 +64,7 @@ UserSchema.pre('findOneAndUpdate', async function (next) {
         console.log('------------------------')
         try {
             const salt = await bcrypt.genSalt(SALT_ROUNDS);
-            const hash = await bcrypt.hash(update.$set.password, salt);
+            const hash = await bcrypt.hash(update?.$set?.password, salt);
 
             this.setUpdate({
                 ...update,
@@ -81,7 +81,7 @@ UserSchema.pre('findOneAndUpdate', async function (next) {
 });
 
 UserSchema.methods.comparePassword = async function (enteredPassword: string): Promise<boolean> {
-    return bcrypt.compare(enteredPassword, this.password)
+    return bcrypt.compare(enteredPassword, this?.password)
 }
 
 export const UserModel = model<IUserDocument>('Users', UserSchema)
