@@ -10,6 +10,7 @@ import { uploadToCloudinary } from "@/utils/cloudinary"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "@/redux/store"
 import { CreateArticle } from "@/redux/action/articleAction"
+import { toast } from "sonner"
 type dropDown = {
   dropDown: boolean
 }
@@ -22,7 +23,6 @@ function ArticleForm({ setCreateArticle }: articleForm) {
   const [action, setAction] = useState<dropDown>({
     dropDown: false
   })
-  const [image, setImage] = useState<File | null>(null)
   type formData = z.infer<typeof ArticleFormSchema>
   const { setValue, register, handleSubmit, setError, getValues, formState: { errors, isSubmitting } } = useForm<formData>({
     resolver: zodResolver(ArticleFormSchema),
@@ -38,17 +38,18 @@ function ArticleForm({ setCreateArticle }: articleForm) {
 
 
   console.log(errors)
-  const onSubmit: SubmitHandler<formData> = async (data:formData) => {
+  const onSubmit: SubmitHandler<formData> = async (data: formData) => {
     try {
       console.log(data)
-      const imageUrl = await uploadToCloudinary(data.image) 
-      if(imageUrl){
-        const req:any = {
+      const imageUrl = await uploadToCloudinary(data.image)
+      if (imageUrl) {
+        const req: any = {
           ...data,
-          image:imageUrl
+          image: imageUrl
         }
         const res = await dispatch(CreateArticle(req)).unwrap()
-        if(res){
+        if (res) {
+          toast.success('Article created successfully')
           setCreateArticle(false)
         }
       }
@@ -138,7 +139,6 @@ function ArticleForm({ setCreateArticle }: articleForm) {
                   const files = e.target.files;
                   if (files && files.length > 0) {
                     console.log(files[0])
-                    setImage(files[0])
                     setValue('image', files[0]); // Manually set the file
                   } else {
                     // setValue('image', ''); // Set to null if no file selected

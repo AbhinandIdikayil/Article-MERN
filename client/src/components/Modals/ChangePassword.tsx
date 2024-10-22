@@ -6,6 +6,7 @@ import { LoaderIcon, X } from "lucide-react"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
+import { toast } from "sonner"
 import { z } from "zod"
 
 function ChangePassword({ setEditPassword }: { setEditPassword: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -22,6 +23,7 @@ function ChangePassword({ setEditPassword }: { setEditPassword: React.Dispatch<R
         try {
             console.log(values)
             await dispatch(updateProfile({password:values.password})).unwrap()
+            toast.success('Password updated')
             setEditPassword(false)
         } catch (error) {
             console.log(error)

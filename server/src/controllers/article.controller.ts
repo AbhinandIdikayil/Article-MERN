@@ -97,13 +97,27 @@ export class ArticleController {
         try {
             const { id } = req.user //! user id
             const articleId = req.params.id
-            let data = await this.articleService.dislikeArticle(articleId,id)
+            let data = await this.articleService.dislikeArticle(articleId, id)
             if (!data) {
                 throw ErrorResponse.badRequest('Couldnt login')
             }
             res.status(200).json({ success: true, data, message: 'successfull' })
         } catch (error) {
 
+        }
+    }
+
+    async blockArticle(req: ModifiedRequest, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.user
+            const articleId = req.params.id
+            const data = await this.articleService.blockArticle(id,articleId)
+            if(!data){
+                throw ErrorResponse.badRequest('Error while blokcking')
+            }
+            res.status(200).json({success:true,data})
+        } catch (error) {
+            next(error)
         }
     }
 }

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store';
 import { editArticle } from '@/redux/action/articleAction';
 import { uploadToCloudinary } from '@/utils/cloudinary';
+import { toast } from 'sonner';
 type dropDown = {
     dropDown: boolean
 }
@@ -73,7 +74,8 @@ function ArticleEdit({ setEditArticle }: articleForm) {
                 articleId: user.article?._id
             }
             if (data.articleId && data.data.image) {
-                const res = await dispatch(editArticle(data)).unwrap()
+                await dispatch(editArticle(data)).unwrap()
+                toast.success('Edited successfully')
                 setEditArticle(false)
             }
 

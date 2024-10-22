@@ -73,26 +73,39 @@ export const editArticle = createAsyncThunk(
 
 export const likeArticle = createAsyncThunk(
     'article/like',
-    async (req:string,{rejectWithValue}) => {
+    async (req: string, { rejectWithValue }) => {
         try {
-            const {data} = await api.post(`/like/${req}`)
+            const { data } = await api.post(`/like/${req}`)
             return data
         } catch (error) {
-           let rejected = handleAsyncThunkError(error) 
-           return rejectWithValue(rejected)
+            let rejected = handleAsyncThunkError(error)
+            return rejectWithValue(rejected)
         }
     }
 )
 
 export const dislikeArticle = createAsyncThunk(
     'article/like',
-    async (req:string,{rejectWithValue}) => {
+    async (req: string, { rejectWithValue }) => {
         try {
-            const {data} = await api.post(`/dislike/${req}`)
+            const { data } = await api.post(`/dislike/${req}`)
             return data
         } catch (error) {
-           let rejected = handleAsyncThunkError(error) 
-           return rejectWithValue(rejected)
+            let rejected = handleAsyncThunkError(error)
+            return rejectWithValue(rejected)
+        }
+    }
+)
+
+export const blockArticle = createAsyncThunk(
+    'article/block',
+    async (req: string, { rejectWithValue }) => {
+        try {
+            const { data } = await api.put(`/block/${req}`)
+            return data
+        } catch (error) {
+            let rejected = handleAsyncThunkError(error)
+            return rejectWithValue(rejected)
         }
     }
 )

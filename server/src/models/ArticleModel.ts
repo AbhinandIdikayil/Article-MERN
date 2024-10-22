@@ -44,14 +44,18 @@ const articleSchema = new Schema<IArticleMOdel>({
         type: String,
         required: true
     },
-    likes:{
+    likes: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref:'Users'
+        ref: 'Users'
     },
-    dislikes:{
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:'Users'
+    dislikes: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Users'
+    },
+    blocks: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Users'
     }
 })
 
-export const ArticlModel = model<IArticleMOdel>('Articles',articleSchema)
+export const ArticlModel = model<IArticleMOdel>('Articles', articleSchema)

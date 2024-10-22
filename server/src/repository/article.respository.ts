@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { ArticlModel, IArticleMOdel } from "../models/ArticleModel";
 import { IArticle } from "../types";
+import ErrorResponse from "../utils/ApiError";
 
 
 
@@ -84,5 +85,25 @@ export class ArticleRepository {
         } else {
             return null
         }
+    }
+    async blockArticle(userid: string, articleid: string): Promise<IArticleMOdel | null> {
+        let article = await this.findOne(articleid)
+        if(!article){
+            throw ErrorResponse.notFound('Article not found')
+        }
+        const userIdObject = new mongoose.Types.ObjectId(userid);
+        let res;
+        const blockedIndex:any = article?.blocks.indexOf(userIdObject);
+
+        if (blockedIndex !== -1) {
+            article?.blocks.splice(blockedIndex, 1);
+            res = await article?.save();
+            //! unblocked
+        } else {
+            //! blocked
+            article?.blocks.push(userIdObject);
+            res =await article?.save();
+        }
+        return res as IArticleMOdel
     }
 }

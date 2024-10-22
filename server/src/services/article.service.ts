@@ -35,4 +35,7 @@ export class ArticleService {
     async dislikeArticle(id: string,userId: string): Promise<IArticleMOdel | null>{
         return await this.articleRepository.dislikeArticle(id,userId)
     }
+    async blockArticle(userId: string,articleId: string): Promise<IArticleMOdel | null> {
+        return await this.articleRepository.blockArticle(userId,articleId)
+    }
 }

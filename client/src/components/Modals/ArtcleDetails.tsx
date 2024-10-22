@@ -1,7 +1,8 @@
-import { dislikeArticle, likeArticle } from "@/redux/action/articleAction"
+import { blockArticle, dislikeArticle, likeArticle } from "@/redux/action/articleAction"
 import { AppDispatch, RootState } from "@/redux/store"
-import { Tag, ThumbsDown, ThumbsUp, X } from "lucide-react"
+import { Shield, Tag, ThumbsDown, ThumbsUp, X } from "lucide-react"
 import { useDispatch, useSelector } from "react-redux"
+import { toast } from "sonner"
 
 function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<React.SetStateAction<boolean>> }) {
   const user = useSelector((state: RootState) => state.user)
@@ -23,6 +24,17 @@ function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<Rea
         const data = await dispatch(dislikeArticle(user.article?._id))
         console.log(data)
       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function block(articleId: string) {
+    try {
+      await dispatch(blockArticle(articleId)).unwrap()
+      setShowArticle(false)
+      toast.success('Article blocked')
+
     } catch (error) {
       console.log(error)
     }
@@ -52,7 +64,7 @@ function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<Rea
                 {user.article?.category}
               </h1>
             </div>
-            <div className="flex gap-4 w-full h-full pt-2">
+            <div className="flex gap-4 items-center w-full h-full pt-2">
               <div className=" text-black flex gap-1 items-center justify-center">
                 <ThumbsUp onClick={onLike} className="text-black" />
                 {user.article?.likes?.length}
@@ -60,6 +72,14 @@ function ArticleDetails({ setShowArticle }: { setShowArticle: React.Dispatch<Rea
               <div className=" text-black flex gap-1 items-center justify-center" >
                 <ThumbsDown onClick={onDislike} className="text-black " />
                 {user.article?.dislikes?.length}
+              </div>
+              <div onClick={() => {
+                if (user.article?._id) {
+                  block(user.article?._id)
+                }
+              }} className="hover:cursor-pointer bg-red-500 px-2 rounded-lg py-1 text-black flex gap-1 items-center justify-center" >
+                <Shield className="text-black " />
+                block
               </div>
             </div>
           </div>
