@@ -16,7 +16,7 @@ export class UserController {
     async register(req: Request, res: Response, next: NextFunction) {
         try {
             const { data } = req.body
-
+            console.log(data)
             let user = await this.userService.register(data)
             if (!user) {
                 throw ErrorResponse.badRequest('Failed to register')
@@ -36,7 +36,7 @@ export class UserController {
         try {
             const { id } = req.user
             const data = await this.userService.getUser(id)
-            res.status(200).json({success:true, data})
+            res.status(200).json({ success: true, data })
         } catch (error) {
             next(error)
         }
@@ -66,6 +66,19 @@ export class UserController {
             })
             res.status(200).json({ message: "logout successfull", success: true })
 
+        } catch (error) {
+            next(error)
+        }
+    }
+    async updateProfile(req: ModifiedRequest, res: Response, next: NextFunction) {
+        try {
+            const { id } = req.user
+            const { data } = req.body
+            const result = await this.userService.updateProfile(id,data)
+            if(!result){
+                throw ErrorResponse.badRequest('Couldnt updted profile')
+            }
+            res.status(200).json({success:true,data:result,message:'updated successfully'})
         } catch (error) {
             next(error)
         }

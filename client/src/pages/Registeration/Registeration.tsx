@@ -11,13 +11,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Register } from '@/redux/action/userAction'
 import { AppDispatch, RootState } from '@/redux/store'
 import { useEffect } from 'react'
+import { AxiosError } from 'axios'
 
 function Registeration() {
   const dispatch = useDispatch<AppDispatch>()
   const user = useSelector((state: RootState) => state.user)
   const navigate = useNavigate()
   type RegisterationType = z.infer<typeof RegisterationVaidation>
-  const { handleSubmit, control, register, setValue, formState: { errors, isSubmitting } } = useForm<RegisterationType>({
+  const { handleSubmit, control, register, setValue,setError, formState: { errors, isSubmitting } } = useForm<RegisterationType>({
     defaultValues: {
       firstname: '',
       lastname: '',
@@ -40,10 +41,14 @@ function Registeration() {
   async function onSubmit(data: RegisterationType) {
     console.log(data)
     try {
-      const res = await dispatch(Register(data)).unwrap()
-      console.log(res)
+      await dispatch(Register(data)).unwrap()
+      navigate('/')
     } catch (error) {
-      console.log(error)
+      if(error instanceof AxiosError){
+        if(error.response?.data){
+          setError('email',error.response?.data)
+        }
+      }
     }
   }
 

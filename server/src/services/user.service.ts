@@ -34,4 +34,7 @@ export class UserService {
     async getUser(id: string): Promise<IUser | null> {
         return await this.userRepository.getUser(id)
     }
+    async updateProfile(id: string, data: IUser): Promise<IUser | null> {
+        return await this.userRepository.updateProfile(id,data)
+    }
 }

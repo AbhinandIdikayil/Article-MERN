@@ -12,6 +12,15 @@ export class UserRepository {
         return await UserModel.findOne({ phone })
     }
     async getUser(_id: string): Promise<IUser | null> {
-        return await UserModel.findOne({_id})
+        return await UserModel.findOne({ _id })
+    }
+    async updateProfile(_id: string, data: IUser): Promise<IUser | null> {
+        return await UserModel.findByIdAndUpdate(
+            { _id },
+            {
+                $set: { ...data }
+            },
+            { new: true }
+        )
     }
 }

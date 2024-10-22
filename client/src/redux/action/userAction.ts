@@ -32,8 +32,6 @@ export const Register = createAsyncThunk(
     'user/login',
     async (req: UserType, { rejectWithValue }) => {
         try {
-            console.log(process.env.SERVER)
-
             const { data } = await api.post('/register', { data: req })
             return data
         } catch (error) {
@@ -76,6 +74,20 @@ export const Logout = createAsyncThunk(
             return data
         } catch (error) {
             return rejectWithValue(error)
+        }
+    }
+)
+
+
+export const updateProfile = createAsyncThunk(
+    'user/update-profile',
+    async (req:any, { rejectWithValue }) => {
+        try {
+            const { data } = await api.put('/profile', { data: req })
+            return data
+        } catch (error) {
+            const rejected = handleAsyncThunkError(error)
+            return rejectWithValue(rejected)
         }
     }
 )

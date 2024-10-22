@@ -1,6 +1,6 @@
 import { UserSliceType } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getUser, Logout, Register } from "../action/userAction";
+import { getUser, Logout, Register, updateProfile } from "../action/userAction";
 import { ArticlesOfOneUser, CreateArticle, editArticle, likeArticle, ListArticles } from "../action/articleAction";
 
 
@@ -101,6 +101,15 @@ const UserSlice = createSlice({
             state.article = payload.data
         })
         builder.addCase(likeArticle.rejected, () => {
+        })
+        builder.addCase(updateProfile.pending, (state) => {
+            state.user = state.user
+        })
+        builder.addCase(updateProfile.fulfilled, (state, { payload }) => {
+            state.user = payload.data
+        })
+        builder.addCase(updateProfile.rejected, (state) => {
+            state.user = state.user
         })
     },
 })

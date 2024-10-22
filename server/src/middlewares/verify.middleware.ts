@@ -13,14 +13,11 @@ export interface ModifiedRequest extends Request {
 export const verify = (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.USER;
-        console.log(req.cookies)
         if (!token) {
             throw ErrorResponse.unauthorized('No token provided');
         }
         const decoded = jwt.verify(token, 'TOKEN') as CustomJwtPayload;
-        console.log(decoded)
         const { id } = decoded;
-
         (req as ModifiedRequest).user = { id };
         next(); 
     } catch (error) {
