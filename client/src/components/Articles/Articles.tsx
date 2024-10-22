@@ -75,48 +75,6 @@ function Articles() {
                                     </div>
                                 ))
                             }
-                            <div className="flex flex-col flex-1 shrink basis-0  min-w-[300px] lg:max-w-[380px] ">
-                                <img
-                                    loading="lazy"
-                                    srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/db0191e63059c57b604c955bdd9c77c694a2b23faae55a316f73d7ab502d3861?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274"
-                                    className="object-contain w-full aspect-[1.6]"
-                                />
-                                <div className="flex flex-col mt-8 w-full">
-                                    <div className="flex flex-col w-full">
-                                        <div className="text-sm font-semibold leading-none text-violet-700">
-                                            Orlando Diggs • 1 Jan 2023
-                                        </div>
-                                        <div className="flex gap-4 items-start mt-3 w-full">
-                                            <div className="flex-1 shrink text-2xl font-semibold leading-8 basis-0 text-text">
-                                                Podcast: Creating a better CX Community
-                                            </div>
-                                            <div className="flex flex-col pt-1 w-6">
-                                                <img
-                                                    loading="lazy"
-                                                    src="https://cdn.builder.io/api/v1/image/assets/TEMP/bd6a10a9684ba64ac2587abd49cc16f9dbb7b4b67ae7f4ca4c8a94ccc5fed255?placeholderIfAbsent=true&apiKey=bf80438c4595450788b907771330b274"
-                                                    className="object-contain w-6 aspect-square"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="mt-3 text-base leading-6 text-gray-500 text-p">
-                                            Starting a community doesn’t need to be complicated, but
-                                            how do you get started?
-                                        </div>
-                                    </div>
-                                    <div className="flex gap-2 items-start mt-6 w-full text-sm font-medium leading-none text-center">
-                                        <div className="flex items-start text-violet-700 whitespace-nowrap bg-blend-multiply">
-                                            <div className="self-stretch px-2.5 py-0.5 bg-purple-50 rounded-2xl">
-                                                Podcasts
-                                            </div>
-                                        </div>
-                                        <div className="flex items-start text-indigo-900 bg-blend-multiply">
-                                            <div className="self-stretch px-2.5 py-0.5 rounded-2xl bg-slate-50">
-                                                Customer Success
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

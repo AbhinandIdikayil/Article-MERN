@@ -87,7 +87,7 @@ function ArticleEdit({ setEditArticle }: articleForm) {
     return (
         <div className='fixed flex justify-center items-center top-0  z-50 w-screen h-full bg-black bg-opacity-45'>
             <div className="w-[650px] max-md:w-5/6 h-fit bg-white px-4 py-4  rounded-lg">
-                <h1 className="capitalize article-form  text-xl">Add new article</h1>
+                <h1 className="capitalize article-form text-black text-xl">Add new article</h1>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full flex justify-between gap-2 pb-7">
                     <div className="w-1/2">
                         <div className="py-1">

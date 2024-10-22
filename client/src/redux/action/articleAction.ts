@@ -58,6 +58,19 @@ type editType = {
     articleId: string
 }
 
+export const deleteArticle = createAsyncThunk(
+    'article/edit',
+    async (req: editType, { rejectWithValue }) => {
+        try {
+            const { data } = await api.put(`/article/${req.articleId}`, { data: req.data })
+            return data
+        } catch (error) {
+            let rejected = handleAsyncThunkError(error)
+            return rejectWithValue(rejected)
+        }
+    }
+)
+
 export const editArticle = createAsyncThunk(
     'article/edit',
     async (req: editType, { rejectWithValue }) => {

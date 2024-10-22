@@ -82,7 +82,7 @@ function Profile() {
             </h1>
             {
               user.user?.preferences?.map((data) => (
-                <span className="bg-gray-200 mr-2 px-2 rounded-2xl my-1">
+                <span className="bg-gray-200 text-violet-500 mr-2 px-2 rounded-2xl my-1">
                   {data.value}
                 </span>
               ))
@@ -102,7 +102,7 @@ function Profile() {
               {
                 user?.myArticles?.map((data: ArticleType) => (
                   <div key={data?._id} className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
-                    <div className="w-full flex justify-between">
+                    <div className="w-full flex justify-between pb-2">
                       <button onClick={() => onEdit(data._id)} className="button-4 text-blue-500">edit</button>
                       <button onClick={() => onDelete(data._id)} className="button-4 text-red-500">delete</button>
                     </div>

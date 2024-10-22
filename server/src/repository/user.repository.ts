@@ -6,13 +6,13 @@ export class UserRepository {
         return await UserModel.create(data)
     }
     async findByEmail(email: string) {
-        return await UserModel.findOne({ email })
+        return await UserModel.findOne({ email }).select('-password')
     }
     async findByPhone(phone: string) {
-        return await UserModel.findOne({ phone })
+        return await UserModel.findOne({ phone }).select('-password')
     }
     async getUser(_id: string): Promise<IUser | null> {
-        return await UserModel.findOne({ _id })
+        return await UserModel.findOne({ _id }).select('-password')
     }
     async updateProfile(_id: string, data: IUser): Promise<IUser | null> {
         return await UserModel.findOneAndUpdate(
@@ -21,6 +21,6 @@ export class UserRepository {
                 $set: { ...data }
             },
             { new: true }
-        )
+        ).select('-password')
     }
 }

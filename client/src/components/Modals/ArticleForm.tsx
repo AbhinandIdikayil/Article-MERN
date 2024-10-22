@@ -31,7 +31,7 @@ function ArticleForm({ setCreateArticle }: articleForm) {
       description: '',
       content: '',
       category: '',
-      image: {},
+      image: undefined,
       tags: '',
     },
   })

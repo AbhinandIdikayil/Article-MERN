@@ -1,7 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Articles from './components/Articles/Articles'
-import LatestArticle from './components/LatestArticle'
 import Registeration from './pages/Registeration/Registeration'
 import Login from './pages/Login/Login'
 import UserLayout from './layout/UserLayout'

@@ -36,7 +36,7 @@ function Editprofile({ setEditProfile }: { setEditProfile: React.Dispatch<React.
 
     async function onSubmit(values: editprofile) {
         try {
-            const data = await dispatch(updateProfile(values)).unwrap()
+         await dispatch(updateProfile(values)).unwrap()
             console.log(values)
         } catch (error) {
             console.log(error)
@@ -47,10 +47,10 @@ function Editprofile({ setEditProfile }: { setEditProfile: React.Dispatch<React.
         <div style={{ zIndex: 99 }} className="fixed flex justify-center items-center top-0 left-0  z-50 w-full h-full bg-black bg-opacity-40">
             <div className="h-fit w-1/2 rounded-md border border-solid border-black bg-gray-100 px-4 py-2">
                 <div className="flex justify-between">
-                    <h1 className="capitalize">Edit profile</h1>
-                    <X onClick={() => setEditProfile(false)} />
+                    <h1 className="capitalize text-black label text-xl">Edit profile</h1>
+                    <X className='text-black' onClick={() => setEditProfile(false)} />
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className='p-3'>
+                <form onSubmit={handleSubmit(onSubmit)} className='px-3 py-1 pb-2'>
                     <div className="w-full flex gap-1">
                         <div className='flex-col w-1/2 mt-3'>
                             <label className='label ' htmlFor="email">
@@ -116,7 +116,7 @@ function Editprofile({ setEditProfile }: { setEditProfile: React.Dispatch<React.
                         <div className='flex flex-wrap'>
                             {
                                 fields?.map((field: any, index) => (
-                                    <div key={index + field.value} className='flex gap-1 items-center bg-gray-200 mx-1 px-2 rounded-2xl my-1'>
+                                    <div key={index + field.value} className='flex gap-1 items-center bg-gray-200 text-violet-500 mx-1 px-2 rounded-2xl my-1'>
                                         <button> {field.value} </button>
                                         <X onClick={() => remove(index)} size={15} className='mt-0.5' />
                                     </div>
@@ -130,7 +130,7 @@ function Editprofile({ setEditProfile }: { setEditProfile: React.Dispatch<React.
                                         if (!fields?.some((field: any) => field.value === data?.category)) {
                                             append({ value: data?.category });
                                         }
-                                    }} className='hover:cursor-pointer bg-gray-200 mx-1 px-2 rounded-2xl my-1'> {data?.category} </span>
+                                    }} className='hover:cursor-pointer bg-gray-200 text-violet-500 mx-1 px-2 rounded-2xl my-1'> {data?.category} </span>
                                 ))
                             }
                         </div>

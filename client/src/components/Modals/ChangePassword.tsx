@@ -33,10 +33,10 @@ function ChangePassword({ setEditPassword }: { setEditPassword: React.Dispatch<R
         <div style={{ zIndex: 99 }} className="fixed flex justify-center items-center top-0 left-0  z-50 w-full h-full bg-black bg-opacity-40">
             <div className="h-fit w-1/2 rounded-md border border-solid border-black bg-gray-100 px-4 py-3">
                 <div className="flex justify-between">
-                    <h1 className="capitalize">Edit profile</h1>
-                    <X onClick={() => setEditPassword(false)} />
+                    <h1 className="capitalize text-black label text-xl">Edit Password</h1>
+                    <X className="text-black" onClick={() => setEditPassword(false)} />
                 </div>
-                <form onSubmit={handleSubmit(onSubmit)} className='p-3'>
+                <form onSubmit={handleSubmit(onSubmit)} className='px-3 py-1'>
 
                     <div className="w-full  gap-1 pb-2">
                         <div className='flex-col w-full mt-3'>
