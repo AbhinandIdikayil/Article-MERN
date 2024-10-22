@@ -16,7 +16,7 @@ function Profile() {
   const { setCreateArticle, setEditArticle } = useOutletContext<OutletContextType>()
   const dispatch = useDispatch<AppDispatch>()
   const [editProfile, setEditProfile] = useState<boolean>(false)
-  const [editPassword,setEditPassword] = useState<boolean>(false)
+  const [editPassword, setEditPassword] = useState<boolean>(false)
   const user = useSelector((state: RootState) => state.user)
   async function getuser() {
     try {
@@ -30,9 +30,9 @@ function Profile() {
     dispatch(setArticleById(articleId))
     setEditArticle(true)
   }
-  
-  function onDelete(id: string){
 
+  function onDelete(id: string) {
+    console.log(id)
   }
 
 
