@@ -1,7 +1,7 @@
 import { UserSliceType } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getUser, Logout, Register, updateProfile } from "../action/userAction";
-import { ArticlesOfOneUser, blockArticle, CreateArticle, editArticle, likeArticle, ListArticles } from "../action/articleAction";
+import { ArticlesOfOneUser, blockArticle, CreateArticle, deleteArticle, editArticle, likeArticle, ListArticles } from "../action/articleAction";
 
 
 const initialState: UserSliceType = {
@@ -118,6 +118,16 @@ const UserSlice = createSlice({
             state.articles = state.articles?.filter(data => data._id == payload.data._id ? null : data)
         })
         builder.addCase(blockArticle.rejected, () => {
+        })
+        builder.addCase(deleteArticle.pending, (state) => {
+            state.myArticles = state.myArticles
+        })
+        builder.addCase(deleteArticle.fulfilled, (state, { payload }) => {
+            console.log(payload)
+            state.myArticles = state.myArticles?.filter(data => data._id == payload.data._id ? null : data)
+        })
+        builder.addCase(deleteArticle.rejected, (state) => {
+            state.myArticles = []
         })
     },
 })

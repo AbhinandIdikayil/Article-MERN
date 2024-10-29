@@ -21,9 +21,11 @@ router.route('/user').get(verify,
     (req, res, next) => userController.getUser(req as ModifiedRequest, res, next))
 router.route('/article').get(verify, (req, res, next) => articleController.ArticlesOfOneUser(req as ModifiedRequest, res, next))
 router.route('/articles').get(verify, articleController.list.bind(articleController))
+
 router.route('/article/:id')
-    .delete(verify, articleController.deleteArticle.bind(articleController))
-    .put(verify,articleController.editArticle.bind(articleController))
+    .delete(verify, articleController.deleteArticle.bind(articleController)) //! FOR DELETING
+    .put(verify,articleController.editArticle.bind(articleController))    //! FOR EDITING
+
 router.route('/like/:id').post(verify,(req,res,next) => articleController.likeArticle(req as unknown as ModifiedRequest, res,next))
 router.route('/dislike/:id').post(verify,(req,res,next) => articleController.dislikeArticle(req as unknown as ModifiedRequest, res,next))
 router.route('/profile').put(verify,(req,res,next) => userController.updateProfile(req as ModifiedRequest,res,next))

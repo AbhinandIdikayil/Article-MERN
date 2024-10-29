@@ -59,7 +59,7 @@ function Login() {
                 }
               </label>
               <div>
-                <input {...register('email')} className='w-full' id='email' type="text" placeholder='Enter your email' />
+                <input {...register('email')} className='w-full text-black' id='email' type="text" placeholder='Enter your email' />
               </div>
             </div>
             <div className='flex-col w-full mt-1'>
@@ -91,7 +91,7 @@ function Login() {
                 }
               </label>
               <div>
-                <input {...register('password')} className='w-full' id='password' type="password" placeholder='Enter you password' />
+                <input {...register('password')} className='w-full text-black' id='password' type="password" placeholder='Enter you password' />
               </div>
             </div>
             {
@@ -105,7 +105,7 @@ function Login() {
                 </button>
               )
             }
-            <h1 className='text-sm font-semibold text-center mt-2'>dont have'an account ,
+            <h1 className='text-sm font-semibold text-center mt-2 text-black'>dont have'an account ,
               <Link to={'/signup'} className='text-violet-700'>
                 create account
               </Link>

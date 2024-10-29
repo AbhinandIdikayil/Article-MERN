@@ -63,7 +63,7 @@ function Registeration() {
     <div className="relative flex h-screen w-screen bg-white Foverflow-hidden">
       <div className='z-50 w-full h-full flex justify-center items-center max-md:px-4'>
         <div className='animate-slideUp w-[500px] max-md:w-full min-h-[500px] border border-solid border-black rounded-lg bg-white shadow-lg'>
-          <form onSubmit={handleSubmit(onSubmit)} className='p-3'>
+          <form onSubmit={handleSubmit(onSubmit)} className='p-3 text-black'>
             <h1 className='h1 mt-3 text-center text-4xl font-semibold tracking-wide leading-tight'>Signup</h1>
             {/* //! FOR FIRSTNAME AND LASTNAME */}
             <div className='flex-col w-full mt-3'>

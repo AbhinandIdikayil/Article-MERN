@@ -16,11 +16,11 @@ type NavbarProps = {
     setCreateArticle: React.Dispatch<React.SetStateAction<boolean>>;
     showArticle: boolean,
     setShowArticle: React.Dispatch<React.SetStateAction<boolean>>;
-    editArticle:boolean,
+    editArticle: boolean,
     setEditArticle: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle ,editArticle , setEditArticle}: NavbarProps) {
+function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle, editArticle, setEditArticle }: NavbarProps) {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const location = useLocation()
     const dispatch = useDispatch<AppDispatch>()
@@ -30,9 +30,13 @@ function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle ,
     }
     async function logout() {
         const data = await dispatch(Logout()).unwrap()
-        if(data){
-           return navigate('/login')
+        if (data) {
+            return navigate('/login')
         }
+    }
+
+    function closeModal() {
+        setIsOpen(false)
     }
     return (
         <>
@@ -41,13 +45,20 @@ function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle ,
             */}
             {
                 isOpen && (
-                    <div className="fixed top-0 left-0 w-full h-screen bg-background flex justify-center items-center">
+                    <div className="z-50 fixed top-0 left-0 w-full h-screen bg-gray-600 flex justify-center items-center text-white">
                         <X className="absolute top-0 right-0 mt-5 mr-6" onClick={onMenuClick} />
-                        <div className="w-fit flex-col justify-center items-center h-fit gap-5" >
-                            <div className="text-xl text-center font-semibold leading-tight whitespace-nowrap py-2">
-                                Profile
+                        <div onClick={closeModal} className="w-fit flex-col justify-center items-center h-fit " >
+                            <Link to={'/settings'} className="text-xl text-center font-semibold leading-tight whitespace-nowrap py-2">
+                                Settings
+                            </Link>
+                            <div className="w-full flex justify-center py-2">
+                                <Toggle mdhidden={false} />
                             </div>
-                            <Toggle mdhidden={false} />
+                            <div className="flex justify-center py-2">
+                                <div className="button-4 bg-red-300">
+                                    logout
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )

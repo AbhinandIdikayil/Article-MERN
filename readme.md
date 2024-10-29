@@ -35,7 +35,7 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone  https://github.com/AbhinandIdikayil/survey-MERN.git
+  git clone  https://github.com/AbhinandIdikayil/Article-MERN.git
 ```
 
 Go to the project directory

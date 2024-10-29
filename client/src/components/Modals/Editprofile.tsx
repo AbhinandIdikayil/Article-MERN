@@ -45,7 +45,7 @@ function Editprofile({ setEditProfile }: { setEditProfile: React.Dispatch<React.
 
     return (
         <div style={{ zIndex: 99 }} className="fixed flex justify-center items-center top-0 left-0  z-50 w-full h-full bg-black bg-opacity-40">
-            <div className="h-fit w-1/2 rounded-md border border-solid border-black bg-gray-100 px-4 py-2">
+            <div className="h-fit w-1/2 max-md:w-5/6  rounded-md border border-solid border-black bg-gray-100 px-4 py-2">
                 <div className="flex justify-between">
                     <h1 className="capitalize text-black label text-xl">Edit profile</h1>
                     <X className='text-black' onClick={() => setEditProfile(false)} />
@@ -69,7 +69,7 @@ function Editprofile({ setEditProfile }: { setEditProfile: React.Dispatch<React.
                             </div>
                         </div>
                     </div>
-                    <div className="w-full flex gap-1">
+                    <div className="w-full flex  gap-1">
                         <div className='flex-col w-1/2 mt-3'>
                             <label className='label ' htmlFor="email">
                                 Email

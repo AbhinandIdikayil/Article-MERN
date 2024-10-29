@@ -1,6 +1,6 @@
 import ChangePassword from "@/components/Modals/ChangePassword"
 import Editprofile from "@/components/Modals/Editprofile"
-import { ArticlesOfOneUser } from "@/redux/action/articleAction"
+import { ArticlesOfOneUser, deleteArticle } from "@/redux/action/articleAction"
 import { getUser } from "@/redux/action/userAction"
 import { setArticleById } from "@/redux/reducers/userSlice"
 import { AppDispatch, RootState } from "@/redux/store"
@@ -31,7 +31,12 @@ function Profile() {
     setEditArticle(true)
   }
 
-  function onDelete(id: string) {
+  async function onDelete(id: string) {
+    try {
+      await dispatch(deleteArticle(id)).unwrap()
+    } catch (error) {
+      console.log(error)
+    }
     console.log(id)
   }
 
@@ -51,9 +56,9 @@ function Profile() {
           <ChangePassword setEditPassword={setEditPassword} />
         )
       }
-      <div className="px-16 h-screen flex-col justify-center items-center profile">
-        <div className="w-full h-1/2 flex gap-5 mt-5 ">
-          <div className="h-full border border-text border-opacity-50 rounded-sm w-1/3 px-2 py-1">
+      <div className="px-16 max-md:px-10 h-screen flex-col justify-center items-center profile">
+        <div className="w-full h-1/2 max-md:h-full flex max-md:flex-col gap-5 mt-5 ">
+          <div className="h-full border border-text border-opacity-50 rounded-sm w-1/3 max-md:w-full px-2 py-1">
             <div className="py-1">
               <span className="text-xl capitalize tracking-wide font-semibold text-text"> username </span>
               <UserPen onClick={() => setEditProfile(true)} className="float-right" />
@@ -88,7 +93,7 @@ function Profile() {
               ))
             }
           </div>
-          <div className="w-2/3 h-full border border-text  rounded-sm p-3">
+          <div className="w-2/3 max-md:w-full h-full border border-text  rounded-sm p-3">
             <h1 className="text-xl capitalize tracking-wide font-semibold text-text"> liked articles </h1>
           </div>
         </div>
