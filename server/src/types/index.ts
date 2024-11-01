@@ -9,10 +9,10 @@ export interface IUser {
     email: string,
     DOB: Date,
     password: string,
-    preferences: {value: string}[];
+    preferences: { value: string }[];
 }
 
-export  interface IArticle {
+export interface IArticle {
     userId: ObjectId,
     title: string
     content: string
@@ -20,11 +20,19 @@ export  interface IArticle {
     image: string;
     tags: string[];
     category: string;
-    likes:string[]
+    likes: string[]
 }
 
 export interface ILogin {
     email?: string,
     phone?: string,
     password: string
+}
+
+
+export interface filterPagination {
+    name?: string | null,
+    category?: [string] | [],
+    pageSize?: number,
+    page: number,
 }

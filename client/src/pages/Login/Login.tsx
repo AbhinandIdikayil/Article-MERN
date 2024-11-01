@@ -46,7 +46,7 @@ function Login() {
     <div className="relative flex h-screen w-screen bg-white overflow-hidden">
       <div className='z-50 w-full h-full flex justify-center items-center animate-slideUp max-md:px-4'>
         <div className='w-[400px] max-md:w-full min-h-[400px] border border-solid border-black rounded-lg bg-white shadow-lg'>
-          <form onSubmit={handleSubmit(onSubmit)} className='p-3'>
+          <form encType='application/x-www-form-urlencoded' onSubmit={handleSubmit(onSubmit)} className='p-3'>
             <h1 className='h1 mt-3 text-center text-4xl font-semibold tracking-wide leading-tight'>Login</h1>
             <h1 className='text-base text-center font-semibold'>Enter your email or phone to login</h1>
             <div className='flex-col w-full mt-3'>

@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ArticleFactory } from "../factory/article.factory";
 import ErrorResponse from "../utils/ApiError";
 import { JwtPayload } from "jsonwebtoken";
+import { filterPagination } from "../types";
 interface CustomJwtPayload extends JwtPayload {
     id: string;
 }
@@ -27,7 +28,8 @@ export class ArticleController {
     }
     async list(req: Request, res: Response, next: NextFunction) {
         try {
-            const data = await this.articleService.findAll()
+            
+            const data = await this.articleService.findAll(req.query)
             res.status(200).json({ success: true, data, message: 'article listed successfully' })
         } catch (error) {
             next(error)

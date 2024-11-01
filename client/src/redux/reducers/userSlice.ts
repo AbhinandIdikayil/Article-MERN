@@ -6,10 +6,11 @@ import { ArticlesOfOneUser, blockArticle, CreateArticle, deleteArticle, editArti
 
 const initialState: UserSliceType = {
     loggedIn: false,
-    articles: [],
+    articles: { articles: [], totalCount: [{ count: 0 }] },
     user: null,
     myArticles: [],
-    article: null
+    article: null,
+    loading: false
 }
 
 const UserSlice = createSlice({
@@ -18,24 +19,24 @@ const UserSlice = createSlice({
     reducers: {
         setArticleById(state, action: PayloadAction<string>) {
             const id = action.payload
-            const foundedArticle: any = state.articles?.find((article) => article._id == id)
+            const foundedArticle: any = state.articles.articles?.find((article) => article._id == id)
             state.article = foundedArticle
         }
     },
     extraReducers: (builder) => {
         builder.addCase(Register.pending, (state) => {
             state.loggedIn = false
-            state.articles = []
+            state.articles.articles = []
             state.user = null
         })
         builder.addCase(Register.fulfilled, (state, { payload }) => {
             state.loggedIn = true
-            state.articles = []
+            state.articles.articles = []
             state.user = payload
         })
         builder.addCase(Register.rejected, (state) => {
             state.loggedIn = false
-            state.articles = []
+            state.articles.articles = []
             state.user = null
         })
         builder.addCase(Logout.pending, (state) => {
@@ -43,7 +44,7 @@ const UserSlice = createSlice({
         })
         builder.addCase(Logout.fulfilled, (state) => {
             state.loggedIn = false
-            state.articles = []
+            state.articles.articles = []
             state.user = null
         })
         builder.addCase(Logout.rejected, (state) => {
@@ -53,19 +54,21 @@ const UserSlice = createSlice({
 
         })
         builder.addCase(CreateArticle.fulfilled, (state, { payload }) => {
-            state.articles = [...state.articles, payload.data]
+            state.articles.articles = [...state.articles.articles, payload.data]
         })
         builder.addCase(CreateArticle.rejected, () => {
 
         })
-        builder.addCase(ListArticles.pending, () => {
-
+        builder.addCase(ListArticles.pending, (state) => {
+            state.loading = true
         })
         builder.addCase(ListArticles.fulfilled, (state, { payload }) => {
-            state.articles = payload.data
+            state.loading = false
+            state.articles = payload
         })
         builder.addCase(ListArticles.rejected, (state) => {
-            state.articles = []
+            state.loading = false
+            state.articles.articles = []
         })
         builder.addCase(getUser.pending, (state) => {
             state.user = null
@@ -115,7 +118,7 @@ const UserSlice = createSlice({
             state.articles = state.articles
         })
         builder.addCase(blockArticle.fulfilled, (state, { payload }) => {
-            state.articles = state.articles?.filter(data => data._id == payload.data._id ? null : data)
+            state.articles.articles = state.articles.articles?.filter(data => data._id == payload.data._id ? null : data)
         })
         builder.addCase(blockArticle.rejected, () => {
         })

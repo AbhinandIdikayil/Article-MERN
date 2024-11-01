@@ -25,15 +25,25 @@ export type ArticleType = {
   image: string;
   tags: string;
   category: string;
-  likes:string[]
-  dislikes:string[]
+  likes: string[]
+  dislikes: string[]
 }
 
 
 export type UserSliceType = {
   loggedIn: boolean,
   user: UserType | null,
-  articles: ArticleType[],
+  articles: {
+    articles: ArticleType[]
+    totalCount: [{count:number}]
+  },
   myArticles: ArticleType[],
-  article: ArticleType | null
+  article: ArticleType | null,
+  loading:boolean
+}
+
+
+export type options = {
+  page: number,
+  pageSize: number,
 }

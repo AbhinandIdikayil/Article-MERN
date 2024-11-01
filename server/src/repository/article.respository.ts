@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { ArticlModel, IArticleMOdel } from "../models/ArticleModel";
-import { IArticle } from "../types";
+import { filterPagination, IArticle } from "../types";
 import ErrorResponse from "../utils/ApiError";
 
 
@@ -9,8 +9,27 @@ export class ArticleRepository {
     async create(data: IArticle): Promise<IArticle> {
         return await ArticlModel.create(data) as unknown as IArticle
     }
-    async findAll(): Promise<IArticle[]> {
-        return await ArticlModel.find()
+    async findAll(option: filterPagination): Promise<IArticle[]> {
+        let f = [
+            { $skip: (option?.page || 0) * (option?.pageSize ?? 6) },
+            { $limit: option?.pageSize ?? 6 }
+        ]
+        console.log(f)
+        const res =  await ArticlModel.aggregate([
+            {
+                $facet: {
+                    articles: [
+                        { $match: {} },
+                        ...f
+                    ],
+                    totalCount: [
+                        { $count: 'count' }
+                    ]
+                }
+            }
+        ])
+        console.log(res)
+        return res[0]
     }
     async deleteOne(id: string): Promise<IArticle | null> {
         let res = await ArticlModel.findByIdAndDelete({ _id: id }, { new: true })
@@ -88,12 +107,12 @@ export class ArticleRepository {
     }
     async blockArticle(userid: string, articleid: string): Promise<IArticleMOdel | null> {
         let article = await this.findOne(articleid)
-        if(!article){
+        if (!article) {
             throw ErrorResponse.notFound('Article not found')
         }
         const userIdObject = new mongoose.Types.ObjectId(userid);
         let res;
-        const blockedIndex:any = article?.blocks.indexOf(userIdObject);
+        const blockedIndex: any = article?.blocks.indexOf(userIdObject);
 
         if (blockedIndex !== -1) {
             article?.blocks.splice(blockedIndex, 1);
@@ -102,7 +121,7 @@ export class ArticleRepository {
         } else {
             //! blocked
             article?.blocks.push(userIdObject);
-            res =await article?.save();
+            res = await article?.save();
         }
         return res as IArticleMOdel
     }

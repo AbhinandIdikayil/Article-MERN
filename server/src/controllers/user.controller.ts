@@ -44,6 +44,7 @@ export class UserController {
     async login(req: Request, res: Response, next: NextFunction) {
         try {
             const { data } = req.body
+            console.log(data, req.body);
             let user = await this.userService.login(data)
             if (!user) {
                 throw ErrorResponse.badRequest('Password is incorrect')
