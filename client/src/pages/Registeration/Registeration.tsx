@@ -31,7 +31,6 @@ function Registeration() {
     },
     resolver: zodResolver(RegisterationVaidation)
   })
-  console.log(errors)
   const { fields, append, remove } = useFieldArray({
     control,
     name: "preferences",
@@ -39,7 +38,6 @@ function Registeration() {
 
 
   async function onSubmit(data: RegisterationType) {
-    console.log(data)
     try {
       await dispatch(Register(data)).unwrap()
       navigate('/')
