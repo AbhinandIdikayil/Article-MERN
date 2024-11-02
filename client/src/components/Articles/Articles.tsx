@@ -95,13 +95,13 @@ function Articles() {
                     </div>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                    <button onClick={prevPage} className={`${user.page == 1 ? 'bg-violet-300' : 'bg-violet-500'} px-2 py-1 rounded`}>
+                    <button onClick={prevPage} className={`${user.page == 1 ? 'bg-violet-300' : 'bg-violet-700'} px-2 py-1 rounded`}>
                         <ChevronsLeft />
                     </button>
                     <span className="px-3 ">
                         {user.page} of {totalPages}
                     </span>
-                    <button onClick={nextPage} className={`${user.page == totalPages ? 'bg-violet-300' : 'bg-violet-500'} px-2 py-1 rounded`}>
+                    <button onClick={nextPage} className={`${user.page == totalPages ? 'bg-violet-300' : 'bg-violet-700'} px-2 py-1 rounded`}>
                         <ChevronsRight />
                     </button>
                 </div>

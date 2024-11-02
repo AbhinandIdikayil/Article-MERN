@@ -45,4 +45,7 @@ export class ArticleService {
     async blockArticle(userId: string, articleId: string): Promise<IArticleMOdel | null> {
         return await this.articleRepository.blockArticle(userId, articleId)
     }
+    async likedUsers(articleId: string) {
+        return await this.articleRepository.likedUsers(articleId)
+    }
 }

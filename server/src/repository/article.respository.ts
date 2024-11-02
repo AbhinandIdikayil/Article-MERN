@@ -42,7 +42,6 @@ export class ArticleRepository {
     async ArticlesOfOneUser(id: string): Promise<IArticle[]> {
         return await ArticlModel.find({ userId: id })
     }
-
     async editArticle(id: string, data: IArticle): Promise<IArticle | null> {
         return await ArticlModel.findByIdAndUpdate(
             { _id: id },
@@ -78,7 +77,6 @@ export class ArticleRepository {
             return null
         }
     }
-
     async dislikeArticle(id: string, userId: string): Promise<IArticleMOdel | null> {
         let article = await this.findOne(id)
         if (article) {
@@ -124,5 +122,9 @@ export class ArticleRepository {
             res = await article?.save();
         }
         return res as IArticleMOdel
+    }
+    async likedUsers(articleId: string): Promise<any> {
+        const data = await ArticlModel.findById(articleId).populate('likes','firstname lastname email')
+        return data?.likes
     }
 }
