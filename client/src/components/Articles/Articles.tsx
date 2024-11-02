@@ -9,30 +9,30 @@ import { useNavigate } from "react-router-dom"
 function Articles() {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
-    const user = useSelector((state: RootState) => state.user)
+    const user = useSelector((state: RootState) => state?.user)
     function showArticle(id: string) {
         dispatch(setArticleById(id))
     }
     async function list() {
         try {
-            await dispatch(ListArticles({ page: user.page, pageSize: user.pageSize })).unwrap()
+            await dispatch(ListArticles({ page: user?.page, pageSize: user?.pageSize })).unwrap()
         } catch (error) {
             console.log(error)
         }
     }
     useEffect(() => {
         list()
-    }, [user.page])
+    }, [user?.page])
 
-    const totalPages = Math.ceil((user.articles.totalCount[0].count || 3) / user.pageSize);
+    const totalPages = Math.ceil((user?.articles?.totalCount[0]?.count || 3) / user?.pageSize);
     const nextPage = () => {
-        if (user.page < totalPages) {
-            dispatch(updatePage(user.page + 1))
+        if (user?.page < totalPages) {
+            dispatch(updatePage(user?.page + 1))
         }
     }
     const prevPage = () => {
-        if (user.page > 1) {
-            dispatch(updatePage(user.page - 1))
+        if (user?.page > 1) {
+            dispatch(updatePage(user?.page - 1))
         }
     }
 
@@ -46,16 +46,16 @@ function Articles() {
                     <div className="flex flex-col mt-8 w-full max-md:max-w-full">
                         <div className="flex flex-wrap gap-8 justify-start items-start w-full max-md:max-w-full">
                             {
-                                user?.articles.articles?.map((data) => (
+                                user?.articles?.articles?.map((data) => (
                                     <div onClick={
                                         () => {
-                                            showArticle(data._id)
+                                            showArticle(data?._id)
                                             navigate('/article')
                                         }
-                                    } key={data._id} className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
+                                    } key={data?._id} className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
                                         <img
                                             loading="lazy"
-                                            srcSet={data.image}
+                                            srcSet={data?.image}
                                             className="object-contain w-full aspect-[1.6]"
                                         />
                                         <div className="flex flex-col mt-8 w-full">
@@ -65,7 +65,7 @@ function Articles() {
                                                 </div>
                                                 <div className="flex gap-4 items-start mt-3 w-full">
                                                     <div className="flex-1 shrink text-2xl font-semibold leading-none basis-0 text-text">
-                                                        {data.title}
+                                                        {data?.title}
                                                     </div>
                                                     <div className="flex flex-col pt-1 w-6">
                                                         <img
@@ -76,13 +76,13 @@ function Articles() {
                                                     </div>
                                                 </div>
                                                 <div className="mt-3 text-base leading-6 text-gray-500 text-p">
-                                                    {data.description}
+                                                    {data?.description}
                                                 </div>
                                             </div>
                                             <div className="flex gap-2 items-start mt-6 w-full text-sm font-medium leading-none text-center whitespace-nowrap">
                                                 <div className="flex items-start text-violet-700 bg-blend-multiply">
                                                     <div className="self-stretch px-2.5 py-0.5 bg-purple-50 rounded-2xl">
-                                                        {data.category}
+                                                        {data?.category}
                                                     </div>
                                                 </div>
 
@@ -95,13 +95,13 @@ function Articles() {
                     </div>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                    <button onClick={prevPage} className={`${user.page == 1 ? 'bg-violet-300' : 'bg-violet-700'} px-2 py-1 rounded`}>
+                    <button onClick={prevPage} className={`${user?.page == 1 ? 'bg-violet-300' : 'bg-violet-700'} px-2 py-1 rounded`}>
                         <ChevronsLeft />
                     </button>
                     <span className="px-3 ">
-                        {user.page} of {totalPages}
+                        {user?.page} of {totalPages}
                     </span>
-                    <button onClick={nextPage} className={`${user.page == totalPages ? 'bg-violet-300' : 'bg-violet-700'} px-2 py-1 rounded`}>
+                    <button onClick={nextPage} className={`${user?.page == totalPages ? 'bg-violet-300' : 'bg-violet-700'} px-2 py-1 rounded`}>
                         <ChevronsRight />
                     </button>
                 </div>
