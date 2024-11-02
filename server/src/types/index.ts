@@ -32,7 +32,7 @@ export interface ILogin {
 
 export interface filterPagination {
     name?: string | null,
-    category?: [string] | [],
+    category?: string,
     pageSize?: number,
     page: number,
 }

@@ -1,28 +1,33 @@
 import { ListArticles } from "@/redux/action/articleAction"
 import { setArticleById, updatePage } from "@/redux/reducers/userSlice"
 import { AppDispatch, RootState } from "@/redux/store"
-import { ChevronsLeft, ChevronsRight } from "lucide-react"
-import { useEffect } from "react"
+import { ChevronDown, ChevronsLeft, ChevronsRight } from "lucide-react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
+import DropDown2 from "../DropDown2"
 
 function Articles() {
     const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
     const user = useSelector((state: RootState) => state?.user)
+    const [action, setAction] = useState<{ dropDown: boolean, category: string }>({
+        category: '',
+        dropDown: false
+    })
     function showArticle(id: string) {
         dispatch(setArticleById(id))
     }
     async function list() {
         try {
-            await dispatch(ListArticles({ page: user?.page, pageSize: user?.pageSize })).unwrap()
+            await dispatch(ListArticles({ page: user?.page, pageSize: user?.pageSize, category: action.category })).unwrap()
         } catch (error) {
             console.log(error)
         }
     }
     useEffect(() => {
         list()
-    }, [user?.page])
+    }, [user?.page,action.category])
 
     const totalPages = Math.ceil((user?.articles?.totalCount[0]?.count || 3) / user?.pageSize);
     const nextPage = () => {
@@ -40,8 +45,22 @@ function Articles() {
         <div className="animate-slideUp container-latest-article flex flex-col justify-center items-center py-8 bg-background">
             <div className="flex flex-col px-8 max-w-full w-[1280px] max-md:px-5">
                 <div className="flex flex-col w-full">
-                    <div className="text-2xl font-semibold leading-none text-text max-md:max-w-full">
-                        All blog posts
+                    <div className="relative text-2xl font-semibold leading-none text-text max-md:max-w-full flex justify-between items-center">
+                        <h1>
+                            All blog posts
+                        </h1>
+                        <div style={{ zIndex: 99 }} onClick={() => setAction((prev) => ({ ...prev, dropDown: !prev.dropDown }))}
+                            className="z-50 w-[150px] h-9 px-3 rounded-md  shadow-sm border" >
+                            <div className="flex justify-between items-center font-medium text-sm capitalize ">
+                                {action.category || 'all'}
+                                {
+                                    action.dropDown && (
+                                        <DropDown2 setValue={setAction} userCategory={user?.user?.preferences ?? []} />
+                                    )
+                                }
+                                <ChevronDown style={{ zIndex: 90 }} className={`float-end mt-1.5 text-gray-600 ${action.dropDown ? 'icon' : ''} `} />
+                            </div>
+                        </div>
                     </div>
                     <div className="flex flex-col mt-8 w-full max-md:max-w-full">
                         <div className="flex flex-wrap gap-8 justify-start items-start w-full max-md:max-w-full">

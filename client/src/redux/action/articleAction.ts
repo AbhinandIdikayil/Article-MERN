@@ -25,7 +25,8 @@ export const ListArticles = createAsyncThunk(
             const { data } = await api.get('/articles',{
                 params:{
                     page:option.page,
-                    pageSize:option.pageSize
+                    pageSize:option.pageSize,
+                    category:option.category
                 }
             })
             return data.data

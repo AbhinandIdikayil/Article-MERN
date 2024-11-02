@@ -14,8 +14,18 @@ export class ArticleRepository {
             { $skip: (option?.page || 0) * (option?.pageSize ?? 6) },
             { $limit: option?.pageSize ?? 6 }
         ]
-        console.log(f)
+        console.log(option)
         const res =  await ArticlModel.aggregate([
+            {
+                $match:{
+                    ...(option.category?.length ? {
+                        category:{
+                            $regex:option.category,
+                            $options:'i'
+                        }
+                    } : {})
+                }
+            },
             {
                 $facet: {
                     articles: [
@@ -28,7 +38,6 @@ export class ArticleRepository {
                 }
             }
         ])
-        console.log(res)
         return res[0]
     }
     async deleteOne(id: string): Promise<IArticle | null> {

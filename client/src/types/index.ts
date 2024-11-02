@@ -48,4 +48,5 @@ export type UserSliceType = {
 export type options = {
   page: number,
   pageSize: number,
+  category: string
 }

@@ -22,10 +22,11 @@ export class ArticleService {
             page: (parseInt(query?.page as string) - 1) || 0,
             pageSize: parseInt(query?.pageSize as string ?? 0) || 0,
             name: query?.name as string || null,
-            category: query?.category as [string] ?? null,
+            category: query?.category as string ?? null,
         }
-        console.log(option)
-        return await this.articleRepository.findAll(option)
+  
+
+        return await this.articleRepository.findAll({ ...option })
     }
     async deleteOne(id: string): Promise<IArticle | null> {
         return await this.articleRepository.deleteOne(id)
