@@ -6,6 +6,7 @@ import Login from './pages/Login/Login'
 import UserLayout from './layout/UserLayout'
 import Profile from './pages/Profile/Profile'
 import ProtectedRoute from './pages/ProtectedRoute'
+import ArticlePage from './pages/ArticlePage/ArticlePage'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
             <Articles />
           </>} />
           <Route path='/settings' element={<Profile />} />
+          <Route path='/article' element={<ArticlePage  />} />
 
         </Route>
       </Routes>

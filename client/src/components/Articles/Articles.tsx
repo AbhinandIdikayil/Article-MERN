@@ -1,54 +1,41 @@
 import { ListArticles } from "@/redux/action/articleAction"
-import { setArticleById } from "@/redux/reducers/userSlice"
+import { setArticleById, updatePage } from "@/redux/reducers/userSlice"
 import { AppDispatch, RootState } from "@/redux/store"
-import { options, OutletContextType } from "@/types"
 import { ChevronsLeft, ChevronsRight } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useOutletContext } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 function Articles() {
-
+    const navigate = useNavigate()
     const dispatch = useDispatch<AppDispatch>()
-    const { setShowArticle } = useOutletContext<OutletContextType>()
-    const [option, setOption] = useState<options>({
-        page: 1,
-        pageSize: 3
-    })
     const user = useSelector((state: RootState) => state.user)
     function showArticle(id: string) {
         dispatch(setArticleById(id))
-        setShowArticle(true)
     }
     async function list() {
         try {
-            await dispatch(ListArticles(option)).unwrap()
+            await dispatch(ListArticles({ page: user.page, pageSize: user.pageSize })).unwrap()
         } catch (error) {
             console.log(error)
         }
     }
     useEffect(() => {
         list()
-    }, [option.page])
+    }, [user.page])
 
+    const totalPages = Math.ceil((user.articles.totalCount[0].count || 3) / user.pageSize);
     const nextPage = () => {
-        if (option.page < totalPages) {
-            setOption((opt) => ({
-                ...opt,
-                page: opt.page + 1,
-            }));
+        if (user.page < totalPages) {
+            dispatch(updatePage(user.page + 1))
         }
     }
     const prevPage = () => {
-        if (option.page > 1) {
-            setOption((opt) => ({
-                ...opt,
-                page: opt.page - 1
-            }))
+        if (user.page > 1) {
+            dispatch(updatePage(user.page - 1))
         }
     }
 
-    const totalPages = Math.ceil((user.articles.totalCount[0].count || 3) / option.pageSize);
     return (
         <div className="animate-slideUp container-latest-article flex flex-col justify-center items-center py-8 bg-background">
             <div className="flex flex-col px-8 max-w-full w-[1280px] max-md:px-5">
@@ -60,7 +47,12 @@ function Articles() {
                         <div className="flex flex-wrap gap-8 justify-start items-start w-full max-md:max-w-full">
                             {
                                 user?.articles.articles?.map((data) => (
-                                    <div onClick={() => showArticle(data._id)} key={data._id} className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
+                                    <div onClick={
+                                        () => {
+                                            showArticle(data._id)
+                                            navigate('/article')
+                                        }
+                                    } key={data._id} className="flex flex-col flex-1 shrink basis-0 min-w-[300px] lg:max-w-[380px]">
                                         <img
                                             loading="lazy"
                                             srcSet={data.image}
@@ -103,13 +95,13 @@ function Articles() {
                     </div>
                 </div>
                 <div className="w-full flex justify-center items-center">
-                    <button onClick={prevPage} className={`${option.page == 1 ? 'bg-violet-300' : 'bg-violet-500'} px-2 py-1 rounded`}>
+                    <button onClick={prevPage} className={`${user.page == 1 ? 'bg-violet-300' : 'bg-violet-500'} px-2 py-1 rounded`}>
                         <ChevronsLeft />
                     </button>
                     <span className="px-3 ">
-                        {option.page} of {totalPages}
+                        {user.page} of {totalPages}
                     </span>
-                    <button onClick={nextPage} className={`${option.page == totalPages ? 'bg-violet-300' : 'bg-violet-500'} px-2 py-1 rounded`}>
+                    <button onClick={nextPage} className={`${user.page == totalPages ? 'bg-violet-300' : 'bg-violet-500'} px-2 py-1 rounded`}>
                         <ChevronsRight />
                     </button>
                 </div>

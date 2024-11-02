@@ -10,7 +10,9 @@ const initialState: UserSliceType = {
     user: null,
     myArticles: [],
     article: null,
-    loading: false
+    loading: false,
+    page: 1,
+    pageSize: 3,
 }
 
 const UserSlice = createSlice({
@@ -21,6 +23,9 @@ const UserSlice = createSlice({
             const id = action.payload
             const foundedArticle: any = state.articles.articles?.find((article) => article._id == id)
             state.article = foundedArticle
+        },
+        updatePage(state, { payload }: { payload: number }) {
+            state.page = payload
         }
     },
     extraReducers: (builder) => {
@@ -134,5 +139,5 @@ const UserSlice = createSlice({
         })
     },
 })
-export const { setArticleById } = UserSlice.actions
+export const { setArticleById, updatePage } = UserSlice.actions
 export default UserSlice.reducer

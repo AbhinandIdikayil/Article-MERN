@@ -39,7 +39,9 @@ export type UserSliceType = {
   },
   myArticles: ArticleType[],
   article: ArticleType | null,
-  loading:boolean
+  loading:boolean,
+  page:number,
+  pageSize:number,
 }
 
 

@@ -13,6 +13,17 @@ body {
 .h1,.profile,.article-form {
   font-family: "Poppins", sans-serif;
 }
+.article-form-p {
+  font-family: "Poppins", sans-serif;
+  white-space: pre-wrap; /* To respect whitespace and new lines */
+}
+
+.article-form-p::after {
+  font-family: "Poppins", sans-serif;
+  content: ""; /* Content remains empty */
+  display: block; /* Forces a new line */
+  margin-top: 0.5em; /* Adjusts the space between sentences */
+}
 
 
 html.light {
