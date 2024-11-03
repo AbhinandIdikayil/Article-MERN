@@ -55,7 +55,7 @@ function Navbar({ setCreateArticle, createArticle, showArticle, setShowArticle, 
                                 <Toggle mdhidden={false} />
                             </div>
                             <div className="flex justify-center py-2">
-                                <div className="button-4 bg-red-300">
+                                <div onClick={logout} className="button-4 bg-red-300">
                                     logout
                                 </div>
                             </div>
