@@ -18,18 +18,21 @@ function Articles() {
     function showArticle(id: string) {
         dispatch(setArticleById(id))
     }
-    async function list() {
-        try {
-            await dispatch(ListArticles({ page: user?.page, pageSize: user?.pageSize, category: action.category })).unwrap()
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    useEffect(() => {
-        list()
-    }, [user?.page,action.category])
 
-    const totalPages = Math.ceil((user?.articles?.totalCount[0]?.count || 3) / user?.pageSize);
+    useEffect(() => {
+        const controller = new AbortController()
+        dispatch(ListArticles(
+            {
+                option: { page: user?.page, pageSize: user?.pageSize, category: action.category },
+                controller: controller
+            }
+        )).unwrap()
+        return () => {
+            controller.abort();
+        }
+    }, [user?.page, action?.category])
+
+    const totalPages = Math.ceil((user?.articles?.totalCount?.[0]?.count || 3) / user?.pageSize);
     const nextPage = () => {
         if (user?.page < totalPages) {
             dispatch(updatePage(user?.page + 1))

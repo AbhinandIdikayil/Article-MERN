@@ -7,6 +7,7 @@ import { connectDB } from './db'
 import cookie from 'cookie-parser'
 import morgan from 'morgan'
 import { logger } from './utils/logger'
+import helmet from 'helmet'
 const app = express()
 
 
@@ -21,9 +22,10 @@ app.use(morgan('combined', { stream: morganStream }));
 
 app.use(cookie())
 app.use(cors(corsOption))
+app.use(helmet({
+    crossOriginResourcePolicy:{policy:'same-origin'}
+}))
 app.use('/api', router)
-
-
 
 
 app.use(errorHandler)

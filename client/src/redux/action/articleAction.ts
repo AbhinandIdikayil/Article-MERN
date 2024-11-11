@@ -20,14 +20,15 @@ export const CreateArticle = createAsyncThunk(
 
 export const ListArticles = createAsyncThunk(
     'user/list-articles',
-    async (option:options, { rejectWithValue }) => {
+    async ({option,controller}:{option:options,controller:AbortController}, { rejectWithValue }) => {
         try {
-            const { data } = await api.get('/articles',{
-                params:{
-                    page:option.page,
-                    pageSize:option.pageSize,
-                    category:option.category
-                }
+            const { data } = await api.get('/articles', {
+                params: {
+                    page: option.page,
+                    pageSize: option.pageSize,
+                    category: option.category
+                },
+                signal:controller.signal
             })
             return data.data
         } catch (error) {

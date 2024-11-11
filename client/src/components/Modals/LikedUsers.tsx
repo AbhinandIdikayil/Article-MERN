@@ -13,13 +13,17 @@ function LikedUsers() {
     }
     const article = useSelector((state: RootState) => state.user.article)
     const [users, setUsers] = useState<LikedUsersType[]>([])
-    async function fetchUsers() {
-        const { data } = await api.get(`article/${article?._id}`)
-        setUsers(data.data)
-        console.log(data)
-    }
+
     useEffect(() => {
-        fetchUsers()
+        const controller = new AbortController()
+        const fetchLikedUser = async () => {
+            const { data } = await api.get(`article/${article?._id}`, { signal: controller.signal })
+            setUsers(data.data)
+        }
+        fetchLikedUser().then().catch(err => console.error(err))
+        return () => {
+            controller.abort()
+        }
     }, [])
     return (
         <>
@@ -32,7 +36,7 @@ function LikedUsers() {
                         <div key={data?._id} className='shadow-sm flex article-form w-full mt-3 border border-solid border-gray-300 rounded-lg items-center px-2 gap-2'>
                             <CircleUserRound size={32} />
                             <div>
-                                <h1> {data?.firstname +  data?.lastname} </h1>
+                                <h1> {data?.firstname + data?.lastname} </h1>
                                 <h1> {data?.email} </h1>
                             </div>
                         </div>

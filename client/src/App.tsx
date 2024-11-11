@@ -25,7 +25,7 @@ function App() {
             <Articles />
           </>} />
           <Route path='/settings' element={<Profile />} />
-          <Route path='/article' element={<ArticlePage  />} />
+          <Route path='/article' element={<ArticlePage />} />
 
         </Route>
       </Routes>
