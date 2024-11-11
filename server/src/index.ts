@@ -28,16 +28,19 @@ app.use(helmet({
     },
     contentSecurityPolicy: {
         directives: {
-            defaultSrc: ["'self'"], // Restricts everything to same origin by default
-            scriptSrc: ["'self'", 'https://article-mern.vercel.app'], // Allow scripts from the frontend
-            styleSrc: ["'self'", 'https://fonts.googleapis.com'], // Example for allowing Google Fonts
-            imgSrc: ["'self'", 'data:', 'https://article-mern.vercel.app'], // Allow images from frontend
-            connectSrc: ["'self'", 'https://article-mern.vercel.app'], // Allow API requests from frontend
-            fontSrc: ["'self'", 'https://fonts.gstatic.com'], // Allow fonts from specific sources
-            objectSrc: ["'none'"], // Disallow <object>, <embed>, <applet> for security
-            frameAncestors: ["'self'"], // Prevent embedding in frames or iframes on other sites
-            upgradeInsecureRequests: [], // Automatically upgrade HTTP requests to HTTPS
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", 'https://article-mern.vercel.app'], // Allow scripts from frontend
+            styleSrc: ["'self'", 'https://fonts.googleapis.com'], // Allow Google Fonts
+            imgSrc: ["'self'", 'https://article-mern.vercel.app', 'data:'], // Allow images from frontend and data URIs
+            connectSrc: ["'self'", 'https://article-mern.vercel.app'], // Allow API calls from frontend
+            fontSrc: ["'self'", 'https://fonts.gstatic.com'], // Allow fonts from Google Fonts
+            objectSrc: ["'none'"], // Disallow <object>, <embed>, <applet> tags
+            frameAncestors: ["'self'"], // Prevent embedding on other sites
+            upgradeInsecureRequests: [],
+            reportUri: '/csp-violation-report-endpoint', // Optional, for receiving reports
         },
+        reportOnly: true,
+        useDefaults: true
     }
 },
 ))
