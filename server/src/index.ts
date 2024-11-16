@@ -29,22 +29,32 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", 'https://article-mern.vercel.app'], // Allow scripts from frontend
-            styleSrc: ["'self'", 'https://fonts.googleapis.com'], // Allow Google Fonts
-            imgSrc: ["'self'", 'https://article-mern.vercel.app', 'data:'], // Allow images from frontend and data URIs
-            connectSrc: ["'self'", 'https://article-mern.vercel.app'], // Allow API calls from frontend
-            fontSrc: ["'self'", 'https://fonts.gstatic.com'], // Allow fonts from Google Fonts
-            objectSrc: ["'none'"], // Disallow <object>, <embed>, <applet> tags
-            frameAncestors: ["'self'"], // Prevent embedding on other sites
-            upgradeInsecureRequests: [],
-            reportUri: '/csp-violation-report-endpoint', // Optional, for receiving reports
+            scriptSrc: ["'self'", 'https://article-mern.vercel.app'],
+            styleSrc: ["'self'", 'https://fonts.googleapis.com', "'unsafe-inline'"], // Added unsafe-inline for Google Fonts
+            imgSrc: ["'self'", 'https://article-mern.vercel.app', 'data:', 'https:'], 
+            connectSrc: ["'self'", 'https://article-mern.vercel.app'],
+            fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+            objectSrc: ["'none'"],
+            frameAncestors: ["'none'"], // Stricter than 'self'
+            formAction: ["'self'"], // Restrict form submissions
+            upgradeInsecureRequests: [], // Force HTTPS
+            baseUri: ["'self'"], // Restrict base-uri
         },
-        reportOnly: true,
+        reportOnly: false, // Enable enforcement
         useDefaults: true
     },
-    frameguard:{action:'deny'},
-    noSniff:true,
-}))
+    frameguard: { action: 'deny' },
+    noSniff: true,
+    hsts: { // Add HSTS
+        maxAge: 31536000,
+        includeSubDomains: true,
+        preload: true
+    },
+    referrerPolicy: { // Add Referrer Policy
+        policy: 'strict-origin-when-cross-origin'
+    },
+    xssFilter: true // Enable XSS filter
+}));
 app.use('/api', router)
 
 
