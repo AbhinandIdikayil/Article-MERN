@@ -41,9 +41,10 @@ app.use(helmet({
         },
         reportOnly: true,
         useDefaults: true
-    }
-},
-))
+    },
+    frameguard:{action:'deny'},
+    noSniff:true,
+}))
 app.use('/api', router)
 
 
