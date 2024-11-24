@@ -1,8 +1,7 @@
-import { NextFunction, Response, Router } from "express";
+import { Response, Router } from "express";
 import { UserController } from "../controllers/user.controller";
 import { ArticleController } from "../controllers/article.controller";
 import { ModifiedRequest, verify } from "../middlewares/verify.middleware";
-import { ArticleRepository } from "../repository/article.respository";
 const userController = new UserController()
 const articleController = new ArticleController()
 

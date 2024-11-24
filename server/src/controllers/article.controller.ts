@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { ArticleFactory } from "../factory/article.factory";
 import ErrorResponse from "../utils/ApiError";
 import { JwtPayload } from "jsonwebtoken";
-import { filterPagination } from "../types";
 interface CustomJwtPayload extends JwtPayload {
     id: string;
 }

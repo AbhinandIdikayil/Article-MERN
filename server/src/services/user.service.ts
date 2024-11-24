@@ -1,10 +1,10 @@
-import { UserRepository } from "../repository/user.repository";
+import { IUserRepo } from "../interfaces/repo/IUserRepo";
 import { ILogin, IUser } from "../types";
 import ErrorResponse from "../utils/ApiError";
 
 export class UserService {
-    private userRepository: UserRepository
-    constructor(userRepository: UserRepository) {
+    private userRepository: IUserRepo
+    constructor(userRepository: IUserRepo) {
         this.userRepository = userRepository
     }
     async register(data: IUser): Promise<IUser> {

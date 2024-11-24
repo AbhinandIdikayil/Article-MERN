@@ -1,11 +1,11 @@
+import { IArticleRepo } from "../interfaces/repo/IArticleRepo";
 import { IArticleMOdel } from "../models/ArticleModel";
-import { ArticleRepository } from "../repository/article.respository";
 import { filterPagination, IArticle } from "../types";
 import ErrorResponse from "../utils/ApiError";
 
 export class ArticleService {
-    private articleRepository: ArticleRepository
-    constructor(articleRepository: ArticleRepository) {
+    private articleRepository: IArticleRepo
+    constructor(articleRepository: IArticleRepo) {
         this.articleRepository = articleRepository
     }
 

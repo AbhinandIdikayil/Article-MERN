@@ -1,7 +1,8 @@
+import { IUserRepo } from "../interfaces/repo/IUserRepo";
 import { IUserDocument, UserModel } from "../models/UserModel";
 import { IUser } from "../types";
 
-export class UserRepository {
+export class UserRepository implements IUserRepo {
     async create(data: IUser) {
         return await UserModel.create(data)
     }

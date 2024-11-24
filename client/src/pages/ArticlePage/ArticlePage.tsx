@@ -48,9 +48,7 @@ function ArticlePage() {
         return <button className='underline' onClick={onClick}> Likes </button>
     }
 
-
     const ListLikedUsers = ModalHOC(SimpleButton, LikedUsers)
-
 
     return (
         <>

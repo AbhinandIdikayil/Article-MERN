@@ -2,10 +2,11 @@ import mongoose from "mongoose";
 import { ArticlModel, IArticleMOdel } from "../models/ArticleModel";
 import { filterPagination, IArticle } from "../types";
 import ErrorResponse from "../utils/ApiError";
+import { IArticleRepo } from "../interfaces/repo/IArticleRepo";
 
 
 
-export class ArticleRepository {
+export class ArticleRepository implements IArticleRepo {
     async create(data: IArticle): Promise<IArticle> {
         return await ArticlModel.create(data) as unknown as IArticle
     }
